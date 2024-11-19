@@ -1,6 +1,7 @@
 import { RouterProvider, createHashRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/Sign-up";
+import Doctor from "./pages/Doctor";
 
 const router = createHashRouter([
   {
@@ -10,6 +11,10 @@ const router = createHashRouter([
   {
     path: "/sign-up",
     element: <SignUp />,
+  },
+  {
+    path: "/doctor",
+    element: <Doctor />,
   },
 ]);
 
