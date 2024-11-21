@@ -1,16 +1,17 @@
 import React from 'react'
-import logImg2 from '../assets/heart-hand.png'
+import icon from '../assets/icon.png'
 
 const Heading = () => {
   return (
     <div>
-         <div className="flex gap-3 justify-center mb-7">
-            <img src={logImg2} alt="img2" />
-            <h1 className="text-6xl font-bold">BloodCare</h1>
-          </div>
-          <h2 className="font-bold text-2xl text-center">
-            Connecting donors and recipients, saving lives.
-          </h2>
+         <div className='flex justify-center gap-3 mb-5'>
+      <img src={icon} alt="icon" className='pt-3 w-12'/>
+        <h1 className="text-6xl font-bold">BloodCare</h1>
+      </div>
+      <p className="text-center font-semibold text-2xl mb-6">
+      <span class="block">Connecting donors and recipients,</span>
+      <span class="block">saving lives.</span>
+      </p>
     </div>
   )
 }
