@@ -5,6 +5,7 @@ import SignUpFooter from './SignUpFooter';
 import SubmitButton from './SubmitButton';
 import { hospitals } from '../lib/utils';
 
+
 const HeadNurseForm = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">

@@ -1,4 +1,3 @@
-// src/components/FormField.js
 import React from "react";
 
 const FormField = ({ label, name, type = "text", placeholder, required = false, options }) => {
@@ -32,3 +31,5 @@ const FormField = ({ label, name, type = "text", placeholder, required = false, 
 };
 
 export default FormField;
+
+
