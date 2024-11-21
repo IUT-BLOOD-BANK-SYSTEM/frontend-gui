@@ -1,6 +1,7 @@
 import { RouterProvider, createHashRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/Sign-up";
+import Dashboard from "./pages/Dashboard";
 
 const router = createHashRouter([
   {
@@ -10,7 +11,11 @@ const router = createHashRouter([
   {
     path: "/sign-up",
     element: <SignUp />,
-  }
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
 ]);
 
 const App = () => {

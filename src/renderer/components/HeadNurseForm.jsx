@@ -1,12 +1,12 @@
-import React from 'react';
-import FormField from './FormField';
-import Heading from "./Heading"
-import SignUpFooter from './SignUpFooter';
-import SubmitButton from './SubmitButton';
-import { hospitals } from '../lib/utils';
-
+import React from "react";
+import FormField from "./FormField";
+import Heading from "./Heading";
+import SignUpFooter from "./SignUpFooter";
+import SubmitButton from "./SubmitButton";
+import { hospitals } from "../lib/utils";
 
 const HeadNurseForm = () => {
+  const role = "head nurse";
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-1/2">
@@ -29,12 +29,7 @@ const HeadNurseForm = () => {
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <FormField
-              label="Date of Birth"
-              type="date"
-              name="dob"
-              required
-            />
+            <FormField label="Date of Birth" type="date" name="dob" required />
             <FormField
               label="Phone Number"
               type="tel"
@@ -58,23 +53,23 @@ const HeadNurseForm = () => {
             required
           />
           <div className="grid grid-cols-2 gap-4">
-          <FormField
-            label="Password"
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            required
-          />
-          <FormField
-            label="Confirm Password"
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
-            required
-          />
+            <FormField
+              label="Password"
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            />
+            <FormField
+              label="Confirm Password"
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm password"
+              required
+            />
           </div>
-          
-          <SubmitButton />
+
+          <SubmitButton role={role} />
         </form>
         <SignUpFooter />
       </div>

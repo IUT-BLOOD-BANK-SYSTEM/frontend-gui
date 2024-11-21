@@ -1,11 +1,12 @@
-import React from 'react';
-import Heading from './Heading'; 
-import FormField from './FormField';
-import SubmitButton from "./SubmitButton"
-import SignUpFooter from "./SignUpFooter"
-import { hospitals } from '../lib/utils';
+import React from "react";
+import Heading from "./Heading";
+import FormField from "./FormField";
+import SubmitButton from "./SubmitButton";
+import SignUpFooter from "./SignUpFooter";
+import { hospitals } from "../lib/utils";
 
 const DoctorForm = () => {
+  const role = "doctor";
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-1/2">
@@ -64,24 +65,24 @@ const DoctorForm = () => {
             type="text"
             placeholder="e.g. Oncologist"
           />
-        <div className="grid grid-cols-2 gap-4">
-        <FormField
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Enter password"
-            required
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              required
+            />
 
-          <FormField
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm password"
-            required
-          />
-        </div>
-          <SubmitButton />
+            <FormField
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm password"
+              required
+            />
+          </div>
+          <SubmitButton role={role} />
         </form>
         <SignUpFooter />
       </div>
