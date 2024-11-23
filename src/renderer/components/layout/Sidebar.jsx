@@ -6,7 +6,7 @@ export const Sidebar = () => {
   return (
     <div>
       <Button variant="destructive">Button</Button>
-      <Link to="history" relative="path">
+      <Link to="/dashboard/history">
         <h1 className="font-bold">History</h1>
       </Link>
     </div>
