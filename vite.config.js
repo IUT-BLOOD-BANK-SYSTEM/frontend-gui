@@ -15,5 +15,5 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
   },
-  //logLevel: "silent",
+  logLevel: "silent",
 });

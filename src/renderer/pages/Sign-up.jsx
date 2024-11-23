@@ -14,6 +14,8 @@ const SignUp = () => {
     return <Role setStep={setStep} setRole={setRole} role={role} />;
   }
 
+  localStorage.setItem("storedData", role);
+
   switch (role) {
     case "user":
       return <UserForm />;

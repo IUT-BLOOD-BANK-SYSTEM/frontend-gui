@@ -4,7 +4,7 @@ import HeadNurseDashboard from "../components/dashboard/HeadNurseDashboard";
 import DoctorDashboard from "../components/dashboard/DoctorDashboard";
 
 const Dashboard = () => {
-  const role = "doctor";
+  const role = localStorage.getItem("storedData");
 
   switch (role) {
     case "user":

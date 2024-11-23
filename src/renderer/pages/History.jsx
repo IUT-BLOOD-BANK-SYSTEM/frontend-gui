@@ -4,7 +4,7 @@ import HeadNurseHistory from "../components/history/HeadNurseHistory";
 import DoctorHistory from "../components/history/DoctorHistory";
 
 const History = () => {
-  const role = "doctor";
+  const role = localStorage.getItem("storedData");
   switch (role) {
     case "user":
       return <UserHistory />;
