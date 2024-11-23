@@ -1,17 +1,18 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import UserDashboard from "../components/dashboard/UserDashboard";
+import HeadNurseDashboard from "../components/dashboard/HeadNurseDashboard";
+import DoctorDashboard from "../components/dashboard/DoctorDashboard";
 
 const Dashboard = () => {
-  const location = useLocation();
-  const { role } = location.state;
+  const role = "doctor";
 
   switch (role) {
     case "user":
-      return <div>User Dashboard</div>;
+      return <UserDashboard />;
     case "head nurse":
-      return <div>Head Nurse Dashboard</div>;
+      return <HeadNurseDashboard />;
     case "doctor":
-      return <div>Doctor Dashboard</div>;
+      return <DoctorDashboard />;
     default:
       return <div>Role not recognized.</div>;
   }

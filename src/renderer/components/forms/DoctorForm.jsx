@@ -1,12 +1,12 @@
 import React from "react";
-import Heading from "./Heading";
-import FormField from "./FormField";
-import SubmitButton from "./SubmitButton";
-import SignUpFooter from "./SignUpFooter";
-import { hospitals } from "../lib/utils";
+import Heading from "../reusable/Heading";
+import FormField from "../reusable/FormField";
+import SubmitButton from "../reusable/SubmitButton";
+import SignUpFooter from "../reusable/SignUpFooter";
+import { hospitals } from "../../lib/utils";
+import { Link } from "react-router-dom";
 
 const DoctorForm = () => {
-  const role = "doctor";
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-1/2">
@@ -82,7 +82,9 @@ const DoctorForm = () => {
               required
             />
           </div>
-          <SubmitButton role={role} />
+          <Link to="/dashboard">
+            <SubmitButton />
+          </Link>
         </form>
         <SignUpFooter />
       </div>

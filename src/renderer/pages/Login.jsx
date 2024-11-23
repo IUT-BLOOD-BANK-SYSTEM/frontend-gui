@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logImg1 from "../assets/login_image.png";
-import Heading from "../components/Heading";
+import Heading from "../components/reusable/Heading";
 
 const Login = () => {
   return (
@@ -11,7 +11,7 @@ const Login = () => {
           <img src={logImg1} alt="img1" />
         </div>
         <div className="flex flex-col w-1/2 gap-6">
-         <Heading />
+          <Heading />
 
           <form action="">
             <div className="flex flex-col gap-1 mb-5">

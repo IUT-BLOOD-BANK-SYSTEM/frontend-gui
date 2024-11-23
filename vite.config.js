@@ -8,12 +8,12 @@ export default defineConfig({
     outDir: "../../dist/renderer",
     emptyOutDir: true,
     rollupOptions: {
-      external: ["electron"],
+      external: ["electron", "electron-store"],
     },
   },
   server: {
     port: 5173,
     strictPort: true,
   },
-  logLevel: "silent",
+  //logLevel: "silent",
 });

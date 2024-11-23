@@ -1,26 +1,29 @@
-import React, { useState } from "react";
-import UserForm from "../components/UserForm"
-import DoctorForm from "../components/DoctorForm"
-import HeadNurseForm from "../components/HeadNurseForm";
-import Role from "../components/Role"
+import React, { useState, useEffect } from "react";
+import UserForm from "../components/forms/UserForm";
+import DoctorForm from "../components/forms/DoctorForm";
+import HeadNurseForm from "../components/forms/HeadNurseForm";
+import Role from "../components/forms/Role";
 
 const SignUp = () => {
   const [step, setStep] = useState(1);
-  const [role, setRole] = useState("")
+  const [role, setRole] = useState("");
 
-  if(step === 1) {
-    return <Role setStep={setStep} setRole={setRole} role={role} />
+  console.log(role);
+
+  if (step === 1) {
+    return <Role setStep={setStep} setRole={setRole} role={role} />;
   }
 
   switch (role) {
     case "user":
-      return <UserForm />
+      return <UserForm />;
     case "head nurse":
-      return <HeadNurseForm />
+      return <HeadNurseForm />;
     case "doctor":
-      return <DoctorForm />
+      return <DoctorForm />;
     default:
-      console.log("Role not chosen")
+      console.log("Role not chosen");
+      return null;
   }
 };
 
