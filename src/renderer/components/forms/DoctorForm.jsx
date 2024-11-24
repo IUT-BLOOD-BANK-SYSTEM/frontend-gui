@@ -1,9 +1,10 @@
-import React from 'react';
-import Heading from './Heading'; 
-import FormField from './FormField';
-import SubmitButton from "./SubmitButton"
-import SignUpFooter from "./SignUpFooter"
-import { hospitals } from '../lib/utils';
+import React from "react";
+import Heading from "../reusable/Heading";
+import FormField from "../reusable/FormField";
+import SubmitButton from "../reusable/SubmitButton";
+import SignUpFooter from "../reusable/SignUpFooter";
+import { hospitals } from "../../lib/utils";
+import { Link } from "react-router-dom";
 
 const DoctorForm = () => {
   return (
@@ -64,24 +65,26 @@ const DoctorForm = () => {
             type="text"
             placeholder="e.g. Oncologist"
           />
-        <div className="grid grid-cols-2 gap-4">
-        <FormField
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Enter password"
-            required
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              required
+            />
 
-          <FormField
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm password"
-            required
-          />
-        </div>
-          <SubmitButton />
+            <FormField
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm password"
+              required
+            />
+          </div>
+          <Link to="/dashboard">
+            <SubmitButton />
+          </Link>
         </form>
         <SignUpFooter />
       </div>

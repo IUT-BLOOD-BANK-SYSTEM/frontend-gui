@@ -8,7 +8,7 @@ export default defineConfig({
     outDir: "../../dist/renderer",
     emptyOutDir: true,
     rollupOptions: {
-      external: ["electron"],
+      external: ["electron", "electron-store"],
     },
   },
   server: {

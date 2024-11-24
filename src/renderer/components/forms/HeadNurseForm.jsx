@@ -1,10 +1,10 @@
-import React from 'react';
-import FormField from './FormField';
-import Heading from "./Heading"
-import SignUpFooter from './SignUpFooter';
-import SubmitButton from './SubmitButton';
-import { hospitals } from '../lib/utils';
-
+import React from "react";
+import FormField from "../reusable/FormField";
+import Heading from "../reusable/Heading";
+import SignUpFooter from "../reusable/SignUpFooter";
+import SubmitButton from "../reusable/SubmitButton";
+import { hospitals } from "../../lib/utils";
+import { Link } from "react-router-dom";
 
 const HeadNurseForm = () => {
   return (
@@ -29,12 +29,7 @@ const HeadNurseForm = () => {
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <FormField
-              label="Date of Birth"
-              type="date"
-              name="dob"
-              required
-            />
+            <FormField label="Date of Birth" type="date" name="dob" required />
             <FormField
               label="Phone Number"
               type="tel"
@@ -58,23 +53,25 @@ const HeadNurseForm = () => {
             required
           />
           <div className="grid grid-cols-2 gap-4">
-          <FormField
-            label="Password"
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            required
-          />
-          <FormField
-            label="Confirm Password"
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
-            required
-          />
+            <FormField
+              label="Password"
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            />
+            <FormField
+              label="Confirm Password"
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm password"
+              required
+            />
           </div>
-          
-          <SubmitButton />
+
+          <Link to="/dashboard">
+            <SubmitButton />
+          </Link>
         </form>
         <SignUpFooter />
       </div>
