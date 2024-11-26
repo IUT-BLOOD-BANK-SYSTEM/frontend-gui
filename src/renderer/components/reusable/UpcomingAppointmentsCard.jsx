@@ -15,10 +15,10 @@ const UpcomingAppointmentsCard = ({ date, month, status, time, patient }) => {
             <p className="text-[#000] flex items-center">{patient}</p>
           </div>
         ) : null}
-        <div className="flex gap-3 font-semibold text-lg">
+        <div className="flex font-semibold items-center text-lg">
           <p className="text-gray-500">Status:</p>
           <p className="text-[#000] flex items-center">
-            <Dot color="#2B9355" /> {status}
+            <Dot color="#2B9355" size={35} /> {status}
           </p>
         </div>
 
