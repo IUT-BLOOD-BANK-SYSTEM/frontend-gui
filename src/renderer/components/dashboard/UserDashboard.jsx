@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 const bloodDonationData = [
   {
@@ -110,13 +111,16 @@ const UserDashboard = () => {
               month={data.month}
             />
           ))}
-          <button className="border border-white w-full h-36 flex justify-center items-center rounded-lg">
+          <Link
+            to="/dashboard/donation"
+            className="border border-white w-full h-36 flex justify-center items-center rounded-lg"
+          >
             <div className="flex gap-3 items-center">
               {" "}
               <CirclePlus />{" "}
               <span className="font-semibold text-xl">Donate blood</span>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col gap-6">
@@ -147,12 +151,14 @@ const UserDashboard = () => {
             ))}
           </TableBody>
         </Table>
-        <Button
-          className="bg-transparent border border-white h-11 text-[17px]"
-          variant="ghost"
-        >
-          See more
-        </Button>
+        <Link to="/dashboard/history">
+          <Button
+            className="bg-transparent border border-white h-11 text-[17px] w-full"
+            variant="ghost"
+          >
+            See more
+          </Button>
+        </Link>
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood acception history</h1>
@@ -178,12 +184,14 @@ const UserDashboard = () => {
             ))}
           </TableBody>
         </Table>
-        <Button
-          className="bg-transparent border border-white h-11 text-[17px]"
-          variant="ghost"
-        >
-          See more
-        </Button>
+        <Link to="/dashboard/history">
+          <Button
+            className="bg-transparent border border-white h-11 text-[17px] w-full"
+            variant="ghost"
+          >
+            See more
+          </Button>
+        </Link>
       </div>
     </section>
   );

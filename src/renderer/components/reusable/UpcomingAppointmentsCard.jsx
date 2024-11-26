@@ -1,5 +1,5 @@
 import React from "react";
-import { GoDotFill } from "react-icons/go";
+import { Dot } from "lucide-react";
 
 const UpcomingAppointmentsCard = ({ date, month, status, time, patient }) => {
   return (
@@ -18,7 +18,7 @@ const UpcomingAppointmentsCard = ({ date, month, status, time, patient }) => {
         <div className="flex gap-3 font-semibold text-lg">
           <p className="text-gray-500">Status:</p>
           <p className="text-[#000] flex items-center">
-            <GoDotFill color="#2B9355" /> {status}
+            <Dot color="#2B9355" /> {status}
           </p>
         </div>
 
