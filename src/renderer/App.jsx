@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Donation from "./pages/Donation";
 import Notifications from "./pages/Notifications";
 import History from "./pages/History";
+import DashboardLayout from "./pages/DashboardLayout";
 
 const router = createHashRouter([
   {
@@ -17,8 +18,12 @@ const router = createHashRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <DashboardLayout />,
     children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
       {
         path: "donation",
         element: <Donation />,
@@ -30,6 +35,10 @@ const router = createHashRouter([
       {
         path: "history",
         element: <History />,
+      },
+      {
+        path: "settings",
+        element: <h1>Settings</h1>,
       },
     ],
   },
