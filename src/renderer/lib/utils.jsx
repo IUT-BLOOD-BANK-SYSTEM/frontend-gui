@@ -27,3 +27,60 @@ export const hospitals = [
   { value: "7", label: "Hospital 7" },
   { value: "8", label: "Hospital 8" },
 ];
+
+export const bloodRequestData = [
+  {
+    id: 1,
+    date: "28.10.2024",
+    time: "15:00",
+    status: "Successfull",
+    bloodType: "A+",
+    patient: "Jude Bellingham",
+    doctor: "Dr. Agostini",
+    amount: "450ml",
+  },
+
+  {
+    id: 2,
+    date: "28.10.2024",
+    time: "15:00",
+    status: "Successfull",
+    bloodType: "A+",
+    patient: "Jude Bellingham",
+    doctor: "Dr. Agostini",
+    amount: "450ml",
+  },
+
+  {
+    id: 3,
+    date: "28.10.2024",
+    time: "15:00",
+    status: "Successfull",
+    bloodType: "A+",
+    patient: "Jude Bellingham",
+    doctor: "Dr. Agostini",
+    amount: "450ml",
+  },
+
+  {
+    id: 4,
+    date: "28.10.2024",
+    time: "15:00",
+    status: "Successfull",
+    bloodType: "A+",
+    patient: "Jude Bellingham",
+    doctor: "Dr. Agostini",
+    amount: "450ml",
+  },
+
+  {
+    id: 5,
+    date: "28.10.2024",
+    time: "15:00",
+    status: "Successfull",
+    bloodType: "A+",
+    patient: "Jude Bellingham",
+    doctor: "Dr. Agostini",
+    amount: "450ml",
+  },
+];

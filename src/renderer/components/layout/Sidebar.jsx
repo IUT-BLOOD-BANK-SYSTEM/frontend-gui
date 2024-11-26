@@ -26,7 +26,7 @@ export const Sidebar = () => {
   const currentPath = location.pathname;
 
   return (
-    <aside className="w-[325px] h-screen sticky top-0 px-10 py-[60px] flex flex-col justify-between">
+    <aside className="w-[325px] h-screen gap-10 sticky top-0 px-10 py-[60px] flex flex-col justify-between">
       <div>
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-4">Hi, Name!</h2>
@@ -55,10 +55,12 @@ export const Sidebar = () => {
           </ul>
         </nav>
       </div>
-      <button type="button" className="flex space-x-2 text-secondary">
-        <LogOut />
-        <span>Log Out</span>
-      </button>
+      <Link to="/">
+        <button type="button" className="flex space-x-2 text-secondary">
+          <LogOut />
+          <span>Log Out</span>
+        </button>
+      </Link>
     </aside>
   );
 };
