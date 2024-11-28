@@ -3,6 +3,8 @@ import UpcomingAppointmentsCard from "../reusable/UpcomingAppointmentsCard";
 import { Button } from "../ui/button";
 import { bloodRequestData } from "../../lib/utils";
 import TableData from "../reusable/TableData";
+import SeeMoreButton from "../reusable/SeeMoreButton";
+import { Link } from "react-router-dom";
 
 const appointmentsData = [
   {
@@ -33,6 +35,56 @@ const appointmentsData = [
   },
 ];
 
+const columnData = [
+  { label: "Date", key: "date" },
+  { label: "Time", key: "time" },
+  { label: "Status", key: "status" },
+  { label: "Blood type", key: "bloodType" },
+  { label: "Patient Name", key: "patientName" },
+];
+const rowData = [
+  {
+    id: 1,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    bloodType: "A+",
+    patientName: "Son Heung Min",
+  },
+  {
+    id: 2,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    bloodType: "A+",
+    patientName: "Son Heung Min",
+  },
+  {
+    id: 3,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    bloodType: "A+",
+    patientName: "Son Heung Min",
+  },
+  {
+    id: 4,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    bloodType: "A+",
+    patientName: "Son Heung Min",
+  },
+  {
+    id: 5,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    bloodType: "A+",
+    patientName: "Son Heung Min",
+  },
+];
+
 const DoctorDashboard = () => {
   return (
     <section className="flex flex-col gap-16">
@@ -56,26 +108,16 @@ const DoctorDashboard = () => {
             />
           ))}
         </div>
-        <Button
-          className="bg-transparent border border-white h-11 text-[17px]"
-          variant="ghost"
-        >
-          See more
-        </Button>
+        <Link to="/dashboard/donation">
+          <SeeMoreButton />
+        </Link>
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Request history</h1>
-        <TableData
-          columnHead3="Status"
-          columnHead4="Blood type"
-          columnHead5="Patient name"
-        />
-        <Button
-          className="bg-transparent border border-white h-11 text-[17px]"
-          variant="ghost"
-        >
-          See more
-        </Button>
+        <TableData columns={columnData} rows={rowData} />
+        <Link to="/dashboard/history">
+          <SeeMoreButton />
+        </Link>
       </div>
     </section>
   );

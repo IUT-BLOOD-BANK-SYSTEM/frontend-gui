@@ -5,6 +5,7 @@ import MedicalInfoCard from "../reusable/MedicalInfoCard";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import TableData from "../reusable/TableData";
+import SeeMoreButton from "../reusable/SeeMoreButton";
 
 const appointmentsData = [
   {
@@ -32,6 +33,56 @@ const appointmentsData = [
     status: "Approved",
     month: "October",
     patient: "John Watson",
+  },
+];
+
+const columnData = [
+  { label: "Date", key: "date" },
+  { label: "Time", key: "time" },
+  { label: "Status", key: "status" },
+  { label: "Hospital Name", key: "hospitalName" },
+  { label: "Doctor Name", key: "doctorName" },
+];
+const rowData = [
+  {
+    id: 1,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    hospitalName: "HealthBridge",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 2,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    hospitalName: "HealthBridge",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 3,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    hospitalName: "HealthBridge",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 4,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    hospitalName: "HealthBridge",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 5,
+    date: "10.28.2024",
+    time: "13:00",
+    status: "Approved",
+    hospitalName: "HealthBridge",
+    doctorName: "Dr. Dre",
   },
 ];
 
@@ -74,34 +125,16 @@ const UserDashboard = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood donation history</h1>
-        <TableData
-          columnHead3="Status"
-          columnHead4="Hospital name"
-          columnHead5="Doctor name"
-        />
+        <TableData columns={columnData} rows={rowData} />
         <Link to="/dashboard/history">
-          <Button
-            className="bg-transparent border border-white h-11 text-[17px] w-full"
-            variant="ghost"
-          >
-            See more
-          </Button>
+          <SeeMoreButton />
         </Link>
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood acception history</h1>
-        <TableData
-          columnHead3="Status"
-          columnHead4="Hospital name"
-          columnHead5="Doctor name"
-        />
+        <TableData columns={columnData} rows={rowData} />
         <Link to="/dashboard/history">
-          <Button
-            className="bg-transparent border border-white h-11 text-[17px] w-full"
-            variant="ghost"
-          >
-            See more
-          </Button>
+          <SeeMoreButton />
         </Link>
       </div>
     </section>
