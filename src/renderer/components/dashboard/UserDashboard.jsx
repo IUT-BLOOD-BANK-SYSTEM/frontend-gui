@@ -14,7 +14,6 @@ const appointmentsData = [
     time: "15:00",
     status: "Approved",
     month: "October",
-    patient: "John Watson",
   },
 
   {
@@ -23,7 +22,6 @@ const appointmentsData = [
     time: "15:00",
     status: "Approved",
     month: "October",
-    patient: "John Watson",
   },
 
   {
@@ -32,7 +30,6 @@ const appointmentsData = [
     time: "15:00",
     status: "Approved",
     month: "October",
-    patient: "John Watson",
   },
 ];
 
@@ -99,13 +96,7 @@ const UserDashboard = () => {
         <h1 className="font-semibold text-xl">Upcoming appointments</h1>
         <div className="grid grid-cols-2 gap-5">
           {appointmentsData.map((data) => (
-            <UpcomingAppointmentsCard
-              key={data.id}
-              time={data.time}
-              status={data.status}
-              date={data.date}
-              month={data.month}
-            />
+            <UpcomingAppointmentsCard data={data} />
           ))}
           <Link
             to="/dashboard/donation"

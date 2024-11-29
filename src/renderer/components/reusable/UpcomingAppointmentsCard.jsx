@@ -1,7 +1,8 @@
 import React from "react";
 import { Dot } from "lucide-react";
 
-const UpcomingAppointmentsCard = ({ date, month, status, time, patient }) => {
+const UpcomingAppointmentsCard = ({ data }) => {
+  const { date, time, status, month, patient } = data;
   return (
     <div className="bg-[#fff] flex gap-10 justify-start px-10 h-36 items-center rounded-lg">
       <div className="flex flex-col justify-center items-center text-[#D21F3C]">

@@ -98,14 +98,7 @@ const DoctorDashboard = () => {
         <h1 className="font-semibold text-xl">Upcoming appointments</h1>
         <div className="grid grid-cols-2 gap-5">
           {appointmentsData.map((data) => (
-            <UpcomingAppointmentsCard
-              patient={data.patient}
-              key={data.id}
-              time={data.time}
-              status={data.status}
-              date={data.date}
-              month={data.month}
-            />
+            <UpcomingAppointmentsCard data={data} />
           ))}
         </div>
         <Link to="/dashboard/donation">
