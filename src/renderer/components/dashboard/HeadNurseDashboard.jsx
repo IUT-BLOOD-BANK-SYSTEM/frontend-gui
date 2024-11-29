@@ -1,16 +1,60 @@
 import { bloodRequestData, bloodTypes } from "../../lib/utils";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
 import { Button } from "../ui/button";
 import banner from "../../assets/banner.svg";
 import BloodInfoCard from "../reusable/BloodInfoCard";
+import TableData from "../reusable/TableData";
+import { Link } from "react-router-dom";
+import SeeMoreButton from "../reusable/SeeMoreButton";
+
+const columnData = [
+  { label: "Date", key: "date" },
+  { label: "Time", key: "time" },
+  { label: "Blood type", key: "bloodType" },
+  { label: "Amount", key: "amount" },
+  { label: "Doctor Name", key: "doctorName" },
+];
+const rowData = [
+  {
+    id: 1,
+    date: "10.28.2024",
+    time: "13:00",
+    bloodType: "A+",
+    amount: "450ml",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 2,
+    date: "10.28.2024",
+    time: "13:00",
+    bloodType: "A+",
+    amount: "450ml",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 3,
+    date: "10.28.2024",
+    time: "13:00",
+    bloodType: "A+",
+    amount: "450ml",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 4,
+    date: "10.28.2024",
+    time: "13:00",
+    bloodType: "A+",
+    amount: "450ml",
+    doctorName: "Dr. Dre",
+  },
+  {
+    id: 5,
+    date: "10.28.2024",
+    time: "13:00",
+    bloodType: "A+",
+    amount: "450ml",
+    doctorName: "Dr. Dre",
+  },
+];
 
 const HeadNurseDashboard = () => {
   return (
@@ -35,34 +79,10 @@ const HeadNurseDashboard = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood request history</h1>
-        <Table className="text-base">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Date</TableHead>
-              <TableHead>Time</TableHead>
-              <TableHead>Blood type</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead className="text-right">Doctor</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {bloodRequestData.map((data) => (
-              <TableRow key={data.id}>
-                <TableCell>{data.date}</TableCell>
-                <TableCell>{data.time}</TableCell>
-                <TableCell>{data.bloodType}</TableCell>
-                <TableCell className="text-right">{data.amount}</TableCell>
-                <TableCell className="text-right">{data.doctor}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <Button
-          className="bg-transparent border border-white h-11 text-[17px]"
-          variant="ghost"
-        >
-          See more
-        </Button>
+        <TableData columns={columnData} rows={rowData} />
+        <Link to="/dashboard/history">
+          <SeeMoreButton />
+        </Link>
       </div>
     </section>
   );

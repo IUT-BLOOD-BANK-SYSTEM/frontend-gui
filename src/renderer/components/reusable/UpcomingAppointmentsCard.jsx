@@ -1,7 +1,8 @@
 import React from "react";
 import { Dot } from "lucide-react";
 
-const UpcomingAppointmentsCard = ({ date, month, status, time, patient }) => {
+const UpcomingAppointmentsCard = ({ data }) => {
+  const { date, time, status, month, patient } = data;
   return (
     <div className="bg-[#fff] flex gap-10 justify-start px-10 h-36 items-center rounded-lg">
       <div className="flex flex-col justify-center items-center text-[#D21F3C]">
@@ -15,10 +16,10 @@ const UpcomingAppointmentsCard = ({ date, month, status, time, patient }) => {
             <p className="text-[#000] flex items-center">{patient}</p>
           </div>
         ) : null}
-        <div className="flex gap-3 font-semibold text-lg">
+        <div className="flex font-semibold items-center text-lg">
           <p className="text-gray-500">Status:</p>
           <p className="text-[#000] flex items-center">
-            <Dot color="#2B9355" /> {status}
+            <Dot color="#2B9355" size={35} /> {status}
           </p>
         </div>
 
