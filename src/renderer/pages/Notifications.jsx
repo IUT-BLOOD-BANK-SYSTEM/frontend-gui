@@ -1,7 +1,11 @@
 import React from "react";
+import NurseNotification from "../components/NurseNotification/NurseNotification";
 
 const Notifications = () => {
-  return <div>Notifications</div>;
+  const role = localStorage.getItem("storedData");
+
+
+      return <NurseNotification />;
 };
 
 export default Notifications;

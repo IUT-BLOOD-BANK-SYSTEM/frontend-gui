@@ -1,8 +1,9 @@
 import React from "react";
 import BloodBank from "../components/bloodbank/BloodBank"
 
-const Donation = () => {
-      return <Donation/>;
+const bloodbank = () => 
+  {
+      return <BloodBank />;
 };
 
-export default Donation;
+export default bloodbank;

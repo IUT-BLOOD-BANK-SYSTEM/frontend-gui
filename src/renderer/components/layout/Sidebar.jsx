@@ -1,16 +1,19 @@
 import { Link } from "react-router-dom";
-import {
+import 
+{
   House,
   CirclePlus,
   MessageSquareDot,
   History,
   Settings,
   LogOut,
+  DatabaseIcon,
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 const navItems = [
   { name: "Home", icon: <House />, path: "/dashboard" },
+  {name: "Blood Bank", icon: <DatabaseIcon/>, path: "/dashboard/Bloodbank" },
   { name: "Donate", icon: <CirclePlus />, path: "/dashboard/donation" },
   {
     name: "Notifications",
