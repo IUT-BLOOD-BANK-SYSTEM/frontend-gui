@@ -6,11 +6,14 @@ import {
   History,
   Settings,
   LogOut,
+  Databaseicon,
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 const navItems = [
   { name: "Home", icon: <House />, path: "/dashboard" },
+  {name:"Blood Bank For Head Nurse", icon:<Databaseicon/>,},
+
   { name: "Donate", icon: <CirclePlus />, path: "/dashboard/donation" },
   {
     name: "Notifications",

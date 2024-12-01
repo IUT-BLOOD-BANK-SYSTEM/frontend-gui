@@ -1,7 +1,7 @@
 import React from "react";
-
+import BloodBank from "../components/BloodBank/BloodBank";
 const Donation = () => {
-  return <div>Donation</div>;
+  return <BloodBank/>
 };
 
 export default Donation;
