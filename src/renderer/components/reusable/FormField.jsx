@@ -1,12 +1,23 @@
 import React from "react";
 
-const FormField = ({ label, name, type = "text", placeholder, required = false, options }) => {
+const FormField = ({ 
+  label, 
+  name, 
+  type = "text", 
+  placeholder, 
+  required = false, 
+  options, 
+  labelClassName = "" // New prop to allow custom label styling
+}) => {
   return (
     <div>
-      <label className="block text-sm font-medium mb-2">{label}</label>
+      {/* Updated label with customizable classes */}
+      <label className={`block text-sm font-medium mb-2 ${labelClassName}`}>
+        {label}
+      </label>
       {type === "select" ? (
         <select
-        name={name}
+          name={name}
           className="w-full p-2 border border-[#e0e0e0] rounded bg-primary text-white focus:outline-none focus:ring focus:ring-[#e0e0e0]"
           required={required}
         >
@@ -31,5 +42,3 @@ const FormField = ({ label, name, type = "text", placeholder, required = false, 
 };
 
 export default FormField;
-
-

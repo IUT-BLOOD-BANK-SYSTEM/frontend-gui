@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 
 const navItems = [
   { name: "Home", icon: <House />, path: "/dashboard" },
-  { name: "Donate", icon: <CirclePlus />, path: "/dashboard/donation" },
+  { name: "Request", icon: <CirclePlus />, path: "/dashboard/request" },
   {
     name: "Notifications",
     icon: <MessageSquareDot />,
