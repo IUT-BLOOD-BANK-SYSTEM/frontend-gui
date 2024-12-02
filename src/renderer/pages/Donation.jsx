@@ -1,8 +1,11 @@
 import React from "react";
-import BloodBank from "../components/bloodbank/BloodBank"
 
 const Donation = () => {
-      return <Donation/>;
+  return (
+    <div>
+      <h1>Donation</h1>
+    </div>
+  );
 };
 
 export default Donation;

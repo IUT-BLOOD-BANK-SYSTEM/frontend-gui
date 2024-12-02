@@ -9,7 +9,7 @@ const Dashboard = () => {
   switch (role) {
     case "user":
       return <UserDashboard />;
-    case "head nurse":
+    case "headNurse":
       return <HeadNurseDashboard />;
     case "doctor":
       return <DoctorDashboard />;

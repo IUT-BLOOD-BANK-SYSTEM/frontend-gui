@@ -6,11 +6,11 @@ import Heading from "../components/reusable/Heading";
 const Login = () => {
   return (
     <div className="min-h-screen bg-primary grid place-content-center mx-5">
-      <div className="flex w-full items-center">
-        <div className="flex w-1/2">
+      <div className="flex w-full items-center gap-x-36">
+        <div className="flex flex-1">
           <img src={logImg1} alt="img1" />
         </div>
-        <div className="flex flex-col w-1/2 gap-6">
+        <div className="flex flex-col flex-1 gap-6">
           <Heading />
 
           <form action="">
