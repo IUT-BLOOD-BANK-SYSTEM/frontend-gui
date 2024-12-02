@@ -8,7 +8,7 @@ const History = () => {
   switch (role) {
     case "user":
       return <UserHistory />;
-    case "head nurse":
+    case "headNurse":
       return <HeadNurseHistory />;
     case "doctor":
       return <DoctorHistory />;

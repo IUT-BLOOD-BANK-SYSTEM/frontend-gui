@@ -1,5 +1,7 @@
 import React from "react";
-import UserNotification from "../components/notification/UserNotification";
+import NurseNotification from "../components//notifications/NurseNotification";
+import UserNotification from "../components/notifications/UserNotification";
+import DoctorNotification from "../components/notifications/DoctorNotifaction";
 
 const Notifications = () => {
   const role = localStorage.getItem("storedData");
@@ -7,12 +9,13 @@ const Notifications = () => {
   switch (role) {
     case "user":
       return <UserNotification />;
-    // case "head nurse":
-    //   return <HeadNurseNotification />;
-    // case "doctor":
-    //   return <DoctorNotification />;
+    case "headNurse":
+      return <NurseNotification />;
+    case "doctor":
+      return <DoctorNotification />;
     default:
-      return <div>Role not recognized.</div>;
+      console.log("Role not chosen");
+      return null;
   }
 };
 
