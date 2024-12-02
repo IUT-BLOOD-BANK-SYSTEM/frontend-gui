@@ -7,6 +7,10 @@ import Donation from "./pages/Donation";
 import DoctorNotifications from "./components/Notifications/DoctorNotifications";
 import History from "./pages/History";
 import DashboardLayout from "./pages/DashboardLayout";
+import BloodBank from "./pages/Bloodbank";
+import ErrorPage from "./pages/Error";
+import Appointments from "./pages/Appointments";
+import RequestBlood from "./pages/RequestBlood";
 
 const router = createHashRouter([
   {
@@ -20,6 +24,7 @@ const router = createHashRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -38,10 +43,26 @@ const router = createHashRouter([
         element: <History />,
       },
       {
+        path: "bloodbank",
+        element: <BloodBank />,
+      },
+      {
+        path: "request",
+        element: <RequestBlood />,
+      },
+      {
         path: "settings",
         element: <h1>Settings</h1>,
       },
+      {
+        path: "appointments",
+        element: <Appointments />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 

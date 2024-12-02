@@ -1,6 +1,7 @@
 import React from "react";
 import logImg1 from "../../assets/login_image.png";
 import Heading from "../reusable/Heading";
+import SignUpFooter from "../reusable/SignUpFooter";
 
 const Role = ({ setStep, setRole, role }) => {
   const handleClick = () => {
@@ -22,9 +23,9 @@ const Role = ({ setStep, setRole, role }) => {
             <div className="flex flex-wrap justify-center gap-4">
               <button
                 type="button"
-                onClick={() => setRole("head nurse")}
+                onClick={() => setRole("headNurse")}
                 className={`text-white border border-solid rounded-full py-2 px-20 hover:bg-secondary hover:border-secondary transition-colors duration-300 ${
-                  role === "head nurse"
+                  role === "headNurse"
                     ? "bg-secondary border-secondary"
                     : "bg-transparent"
                 }`}
@@ -68,6 +69,7 @@ const Role = ({ setStep, setRole, role }) => {
               Continue
             </button>
           </div>
+          <SignUpFooter />
         </div>
       </div>
     </div>

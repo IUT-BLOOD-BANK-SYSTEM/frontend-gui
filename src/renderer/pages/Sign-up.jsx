@@ -19,7 +19,7 @@ const SignUp = () => {
   switch (role) {
     case "user":
       return <UserForm />;
-    case "head nurse":
+    case "headNurse":
       return <HeadNurseForm />;
     case "doctor":
       return <DoctorForm />;

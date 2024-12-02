@@ -1,7 +1,11 @@
 import React from "react";
 
 const Donation = () => {
-  return <div>Donation</div>;
+  return (
+    <div>
+      <h1>Donation</h1>
+    </div>
+  );
 };
 
 export default Donation;
