@@ -2,7 +2,6 @@ import { CirclePlus } from "lucide-react";
 import banner from "../../assets/banner.svg";
 import UpcomingAppointmentsCard from "../reusable/UpcomingAppointmentsCard";
 import MedicalInfoCard from "../reusable/MedicalInfoCard";
-import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import TableData from "../reusable/TableData";
 import SeeMoreButton from "../reusable/SeeMoreButton";
