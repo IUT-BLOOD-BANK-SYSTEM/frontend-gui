@@ -1,9 +1,10 @@
 import React from "react";
+import UserDonation from "../components/donation/UserDonation"
 
 const Donation = () => {
   return (
     <div>
-      <h1>Donation</h1>
+      <UserDonation />
     </div>
   );
 };

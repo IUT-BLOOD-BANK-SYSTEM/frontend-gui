@@ -21,8 +21,7 @@ const FormField = ({
           className="w-full p-2 border border-[#e0e0e0] rounded bg-primary text-white focus:outline-none focus:ring focus:ring-[#e0e0e0]"
           required={required}
         >
-          <option value="">Select an option</option>
-          {options?.map((option, index) => (
+            {options?.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
             </option>
