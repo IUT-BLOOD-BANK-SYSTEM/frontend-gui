@@ -1,13 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const SubmitButton = ({ text }) => {
+const SubmitButton = ({ variant = "solid", text="Submit", children, onClick }) => {
+  const baseStyles = "w-full px-4 py-2 mt-7 rounded-md font-semibold transition";
+  const variants = {
+    solid: "bg-red-500 text-white hover:bg-red-700",
+    outline: "bg-transparent border border-white text-white hover:opacity-80",
+  };
   return (
     <button
-      type="submit"
-      className="mt-4 w-full bg-secondary text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring focus:ring-secondary hover:bg-[#B01733] transition-colors duration-300"
+      className={`${baseStyles} ${variants[variant]}`}
+      onClick={onClick}
     >
-      {text || "Sign Up"}
+      {text}
+      {children}
     </button>
   );
 };

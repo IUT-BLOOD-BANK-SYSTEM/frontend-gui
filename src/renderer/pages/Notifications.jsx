@@ -1,5 +1,5 @@
 import React from "react";
-import NurseNotification from "../components//notifications/NurseNotification";
+import NurseNotification from "../components/notifications/NurseNotification";
 import UserNotification from "../components/notifications/UserNotification";
 import DoctorNotification from "../components/notifications/DoctorNotifications";
 
