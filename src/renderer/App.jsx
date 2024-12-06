@@ -4,12 +4,13 @@ import SignUp from "./pages/Sign-up";
 import Dashboard from "./pages/Dashboard";
 import RequestBlood from "./pages/RequestBlood";
 import Donation from "./pages/Donation";
-import DoctorNotifications from "./components/Notifications/DoctorNotifications";
+import DoctorNotifications from "./components/notifications/DoctorNotifications";
 import History from "./pages/History";
 import DashboardLayout from "./pages/DashboardLayout";
 import BloodBank from "./pages/Bloodbank";
 import ErrorPage from "./pages/Error";
 import Appointments from "./pages/Appointments";
+import Profile from "./pages/Profile";
 
 const router = createHashRouter([
   {
@@ -47,7 +48,7 @@ const router = createHashRouter([
       },
       {
         path: "settings",
-        element: <h1>Settings</h1>,
+        element: <Profile />,
       },
       {
         path: "appointments",
