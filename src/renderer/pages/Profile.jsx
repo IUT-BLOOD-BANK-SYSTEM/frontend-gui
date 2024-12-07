@@ -1,4 +1,5 @@
 import React from 'react'
+import DoctorProfile from '../components/profile/DoctorProfile';
 import UserProfile from '../components/profile/UserProfile';
 import HeadNurseProfile from '../components/profile/HeadNurseProfile';
 
