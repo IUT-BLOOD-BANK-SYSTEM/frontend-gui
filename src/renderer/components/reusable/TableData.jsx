@@ -27,7 +27,7 @@ const TableData = ({ columns, rows }) => {
                 {column.key === "status" && (
                   <span
                     className={`w-2.5 h-2.5 rounded-full mr-2 inline-block ${
-                      row[column.key] === "Successful" || row[column.key] === "Approved"
+                      row[column.key] === "Successful" || row[column.key] === "Approved" || row[column.key] === "Available"
                         ? "bg-green-500"
                         : row[column.key] === "Pending"
                         ? "bg-gray-500"
