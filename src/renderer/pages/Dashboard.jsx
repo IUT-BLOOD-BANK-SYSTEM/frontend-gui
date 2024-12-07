@@ -2,6 +2,7 @@ import React from "react";
 import UserDashboard from "../components/dashboard/UserDashboard";
 import HeadNurseDashboard from "../components/dashboard/HeadNurseDashboard";
 import DoctorDashboard from "../components/dashboard/DoctorDashboard";
+import AdminDashboard from "../pages/AdminDashboard";
 
 const Dashboard = () => {
   const role = localStorage.getItem("storedData");
@@ -13,8 +14,10 @@ const Dashboard = () => {
       return <HeadNurseDashboard />;
     case "doctor":
       return <DoctorDashboard />;
+    case "admin":
+      return <AdminDashboard />;
     default:
-      return <div>Role not recognized.</div>;
+      return <h1>Oops! Something went wrong...</h1>;
   }
 };
 

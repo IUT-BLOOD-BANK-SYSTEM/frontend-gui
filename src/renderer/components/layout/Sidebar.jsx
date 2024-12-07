@@ -8,6 +8,9 @@ import {
   LogOut,
   DatabaseIcon,
   Calendar,
+  User,
+  HospitalIcon,
+  BriefcaseMedicalIcon,
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
@@ -57,16 +60,16 @@ export const navItems = {
     sharedRoutes.history,
     sharedRoutes.profile,
   ],
-  // admin: [
-  //   sharedRoutes.home,
-  //   { name: "User Management", icon: UserCog, path: "/dashboard/users" },
-  //   sharedRoutes.bloodBank,
-  //   {
-  //     name: "System Settings",
-  //     icon: Settings,
-  //     path: "/dashboard/system-settings",
-  //   },
-  // ],
+  admin: [
+    sharedRoutes.home,
+    { name: "Users", icon: <User />, path: "/dashboard/users" },
+    { name: "Doctors", icon: <HospitalIcon />, path: "/dashboard/doctors" },
+    {
+      name: "Head nurses",
+      icon: <BriefcaseMedicalIcon />,
+      path: "/dashboard/head-nurses",
+    },
+  ],
 };
 
 export const Sidebar = () => {

@@ -41,6 +41,9 @@ const Login = () => {
 
           <div className="flex justify-center mt-5 text-center">
             <Link
+              onClick={() => {
+                localStorage.setItem("storedData", "admin");
+              }}
               to="/dashboard"
               className="bg-secondary w-full text-white py-2 px-4 rounded-md hover:bg-[#B01733] focus:outline-none focus:ring-2 focus:ring-[#D21F3C]"
             >
