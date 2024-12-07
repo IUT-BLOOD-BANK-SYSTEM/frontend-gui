@@ -4,13 +4,16 @@ import SignUp from "./pages/Sign-up";
 import Dashboard from "./pages/Dashboard";
 import RequestBlood from "./pages/RequestBlood";
 import Donation from "./pages/Donation";
-import DoctorNotifications from "./components/notifications/DoctorNotifications";
 import History from "./pages/History";
 import DashboardLayout from "./pages/DashboardLayout";
 import BloodBank from "./pages/Bloodbank";
 import ErrorPage from "./pages/Error";
 import Appointments from "./pages/Appointments";
 import Profile from "./pages/Profile";
+import Notifications from "./pages/Notifications";
+import AdminUserManagement from "./pages/AdminUserManagement";
+import AdminDoctorManagement from "./pages/AdminDoctorManagement";
+import AdminHeadNurseManagement from "./pages/AdminHeadNurseManagement";
 
 const router = createHashRouter([
   {
@@ -32,7 +35,7 @@ const router = createHashRouter([
       },
       {
         path: "notifications",
-        element: <DoctorNotifications />,
+        element: <Notifications />,
       },
       {
         path: "history",
@@ -57,6 +60,18 @@ const router = createHashRouter([
       {
         path: "donation",
         element: <Donation />,
+      },
+      {
+        path: "users",
+        element: <AdminUserManagement />,
+      },
+      {
+        path: "doctors",
+        element: <AdminDoctorManagement />,
+      },
+      {
+        path: "head-nurses",
+        element: <AdminHeadNurseManagement />,
       },
     ],
   },
