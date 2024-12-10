@@ -57,7 +57,12 @@ const AdminHeadNurseManagement = () => {
   return (
     <section className="flex flex-col gap-10">
       <h1 className="font-semibold text-xl">Head nurses</h1>
-      <TableData columns={columnData} rows={rowData} />
+      <TableData
+        columns={columnData}
+        rows={rowData}
+        filterColumnKey="status"
+        hasFilter={true}
+      />
     </section>
   );
 };

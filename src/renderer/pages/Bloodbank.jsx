@@ -54,7 +54,7 @@ const BloodBank = () => {
 
               <div className="grid grid-cols-2 gap-2 mt-7">
                 <FormField
-                  name="A+"
+                  name="bloodType"
                   label="Blood type"
                   bgColor="bg-white"
                   textColor="text-black"
@@ -122,7 +122,7 @@ const BloodBank = () => {
 
               <div className="grid grid-cols-2 gap-2 mt-7">
                 <FormField
-                  name="A+"
+                  name="bloodType"
                   label="Blood type"
                   bgColor="bg-white"
                   textColor="text-black"

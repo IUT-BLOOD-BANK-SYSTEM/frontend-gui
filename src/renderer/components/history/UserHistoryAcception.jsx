@@ -1,4 +1,3 @@
-import SubmitButton from "../reusable/SubmitButton";
 import TableData from "../reusable/TableData";
 
 const columnData = [
@@ -52,10 +51,10 @@ const rowData = [
 ];
 
 const UserHistoryAcception = () => {
-  return (  
-       <div className="flex flex-col gap-6">
-        <TableData columns={columnData} rows={rowData} />
-       </div>    
+  return (
+    <div className="flex flex-col gap-6">
+      <TableData columns={columnData} rows={rowData} />
+    </div>
   );
 };
 
