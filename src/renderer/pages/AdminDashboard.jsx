@@ -1,23 +1,8 @@
 import React from "react";
 import banner from "../assets/banner.svg";
 import TableData from "../components/reusable/TableData";
-import { Button } from "../components/ui/button";
-import { CirclePlus, Edit, Edit2, Trash } from "lucide-react";
-
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../components/ui/dialog";
-import FormField from "../components/reusable/FormField";
-
-import { bloodTypes } from "../lib/utils";
-import SubmitButton from "../components/reusable/SubmitButton";
+import HospitalDialog from "../components/reusable/HospitalDialog";
+import { Trash } from "lucide-react";
 
 const columnData = [
   { label: "ID", key: "id" },
@@ -38,7 +23,7 @@ const rowData = [
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
@@ -52,7 +37,7 @@ const rowData = [
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
@@ -66,7 +51,7 @@ const rowData = [
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
@@ -80,7 +65,7 @@ const rowData = [
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
@@ -94,7 +79,7 @@ const rowData = [
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
@@ -119,84 +104,7 @@ const AdminDashboard = () => {
             <TableData columns={columnData} rows={rowData} />
           </div>
 
-          <Dialog>
-            <DialogTrigger>
-              <Button className="bg-success flex items-center px-10 py-5 gap-x-2 text-lg font-semibold hover:bg-emerald-600">
-                <CirclePlus /> Add
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <div className="flex flex-col ">
-                <DialogHeader className={`text-black`}>
-                  <DialogTitle>Add hospital</DialogTitle>
-                </DialogHeader>
-
-                <div className="flex flex-col gap-5 mt-7">
-                  <FormField
-                    name="hospitalName"
-                    label="Hospital name"
-                    bgColor="bg-white"
-                    textColor="text-black"
-                    type="text"
-                    options={bloodTypes}
-                    required={true}
-                    borderColor="border-[#B9B9B9]"
-                  />
-
-                  <div className="flex gap-4">
-                    <FormField
-                      name="region"
-                      label="Region"
-                      bgColor="bg-white"
-                      textColor="text-black"
-                      type="text"
-                      required={true}
-                      borderColor="border-[#B9B9B9]"
-                    />
-                    <FormField
-                      name="phone"
-                      label="Phone"
-                      bgColor="bg-white"
-                      textColor="text-black"
-                      type="text"
-                      required={true}
-                      borderColor="border-[#B9B9B9]"
-                    />
-                  </div>
-
-                  <FormField
-                    name="address"
-                    label="Address"
-                    bgColor="bg-white"
-                    textColor="text-black"
-                    type="text"
-                    required={true}
-                    borderColor="border-[#B9B9B9]"
-                  />
-
-                  <FormField
-                    name="headNurse"
-                    label="Head nurse"
-                    bgColor="bg-white"
-                    textColor="text-black"
-                    type="text"
-                    required={true}
-                    borderColor="border-[#B9B9B9]"
-                  />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <SubmitButton text="Remove from blood bank" />
-                  <DialogFooter className="sm:justify-start">
-                    <DialogClose asChild>
-                      <Button className="bg-transparent text-black hover:bg-gray-100 border border-black text-[17px] w-full">
-                        Cancel
-                      </Button>
-                    </DialogClose>
-                  </DialogFooter>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <HospitalDialog title="Add hospital" buttonText="Add" />
         </div>
       </div>
     </section>

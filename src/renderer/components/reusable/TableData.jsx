@@ -59,10 +59,13 @@ const TableData = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4 gap-4">
+      <div className="flex justify-between items-end mb-4 gap-4">
         {/* Dropdown Filter (Only if `filterColumnKey` is defined) */}
         {hasFilter && filterColumnKey && (
           <div className="relative w-[200px]">
+            <h1 className="mb-1 text-base font-semibold">
+              Filter by {filterColumnKey}
+            </h1>
             <select
               value={filterValue}
               onChange={(e) => handleFilterChange(e.target.value)}
@@ -74,7 +77,7 @@ const TableData = ({
                 </option>
               ))}
             </select>
-            <span className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+            <span className="absolute right-4 top-[48px] transform -translate-y-1/2 pointer-events-none">
               <ArrowDownWideNarrow />
             </span>
           </div>
