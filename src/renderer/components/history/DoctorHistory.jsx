@@ -6,9 +6,9 @@ const columnData = [
   { label: "Hospital Name", key: "hospitalName" },
   { label: "Status", key: "status" },
   { label: "Blood Type", key: "bloodType" },
-  { label: "Amount", key: "amount"},
+  { label: "Amount", key: "amount" },
   { label: "Patient Name", key: "patientName" },
-  { label: "Passport ID", key: "passportID"},
+  { label: "Passport ID", key: "passportID" },
 ];
 
 const rowData = [
@@ -64,14 +64,18 @@ const rowData = [
   },
 ];
 
-const DoctorHistory  = () => {
+const DoctorHistory = () => {
   return (
     <div className="flex flex-col gap-6">
       <h2 className="text-xl font-bold mb-4">Recent notifications</h2>
-        <TableData columns={columnData} rows={rowData} />
+      <TableData
+        columns={columnData}
+        rows={rowData}
+        hasFilter={true}
+        filterColumnKey="status"
+      />
     </div>
   );
 };
 
 export default DoctorHistory;
-

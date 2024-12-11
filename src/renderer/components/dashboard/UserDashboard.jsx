@@ -34,7 +34,6 @@ const appointmentsData = [
 
 const columnData = [
   { label: "Date", key: "date" },
-  { label: "Time", key: "time" },
   { label: "Status", key: "status" },
   { label: "Hospital Name", key: "hospitalName" },
   { label: "Doctor Name", key: "doctorName" },
@@ -43,7 +42,6 @@ const rowData = [
   {
     id: 1,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     hospitalName: "HealthBridge",
     doctorName: "Dr. Dre",
@@ -51,7 +49,6 @@ const rowData = [
   {
     id: 2,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     hospitalName: "HealthBridge",
     doctorName: "Dr. Dre",
@@ -59,7 +56,6 @@ const rowData = [
   {
     id: 3,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     hospitalName: "HealthBridge",
     doctorName: "Dr. Dre",
@@ -67,7 +63,6 @@ const rowData = [
   {
     id: 4,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     hospitalName: "HealthBridge",
     doctorName: "Dr. Dre",
@@ -75,7 +70,6 @@ const rowData = [
   {
     id: 5,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     hospitalName: "HealthBridge",
     doctorName: "Dr. Dre",

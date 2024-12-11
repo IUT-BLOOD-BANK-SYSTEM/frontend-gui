@@ -5,51 +5,52 @@ import { Link } from "react-router-dom";
 
 const columnData = [
   { label: "Date", key: "date" },
-  { label: "Time", key: "time" },
   { label: "Status", key: "status" },
   { label: "Blood type", key: "bloodType" },
+  { label: "Amount", key: "amount" },
   { label: "Patient Name", key: "patientName" },
+  { label: "Passport ID", key: "passportID" },
 ];
 const rowData = [
   {
-    id: 1,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     bloodType: "A+",
+    amount: "350ml",
     patientName: "Son Heung Min",
+    passportID: "AA090342",
   },
   {
-    id: 2,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     bloodType: "A+",
+    amount: "350ml",
     patientName: "Son Heung Min",
+    passportID: "AA090342",
   },
   {
-    id: 3,
     date: "10.28.2024",
-    time: "13:00",
-    status: "Approved",
+    status: "Rejected",
     bloodType: "A+",
+    amount: "350ml",
     patientName: "Son Heung Min",
+    passportID: "AA090342",
   },
   {
-    id: 4,
     date: "10.28.2024",
-    time: "13:00",
-    status: "Approved",
+    status: "Rejected",
     bloodType: "A+",
+    amount: "350ml",
     patientName: "Son Heung Min",
+    passportID: "AA090342",
   },
   {
-    id: 5,
     date: "10.28.2024",
-    time: "13:00",
     status: "Approved",
     bloodType: "A+",
+    amount: "350ml",
     patientName: "Son Heung Min",
+    passportID: "AA090342",
   },
 ];
 
@@ -63,7 +64,12 @@ const DoctorDashboard = () => {
       />
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Request history</h1>
-        <TableData columns={columnData} rows={rowData} />
+        <TableData
+          columns={columnData}
+          rows={rowData}
+          hasFilter={true}
+          filterColumnKey="status"
+        />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>

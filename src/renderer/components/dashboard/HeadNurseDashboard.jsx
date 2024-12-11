@@ -7,7 +7,6 @@ import SeeMoreButton from "../reusable/SeeMoreButton";
 
 const columnData = [
   { label: "Date", key: "date" },
-  { label: "Time", key: "time" },
   { label: "Blood type", key: "bloodType" },
   { label: "Amount", key: "amount" },
   { label: "Doctor Name", key: "doctorName" },
@@ -16,7 +15,6 @@ const rowData = [
   {
     id: 1,
     date: "10.28.2024",
-    time: "13:00",
     bloodType: "A+",
     amount: "450ml",
     doctorName: "Dr. Dre",
@@ -24,7 +22,6 @@ const rowData = [
   {
     id: 2,
     date: "10.28.2024",
-    time: "13:00",
     bloodType: "A+",
     amount: "450ml",
     doctorName: "Dr. Dre",
@@ -32,7 +29,6 @@ const rowData = [
   {
     id: 3,
     date: "10.28.2024",
-    time: "13:00",
     bloodType: "A+",
     amount: "450ml",
     doctorName: "Dr. Dre",
@@ -40,7 +36,6 @@ const rowData = [
   {
     id: 4,
     date: "10.28.2024",
-    time: "13:00",
     bloodType: "A+",
     amount: "450ml",
     doctorName: "Dr. Dre",
@@ -48,7 +43,6 @@ const rowData = [
   {
     id: 5,
     date: "10.28.2024",
-    time: "13:00",
     bloodType: "A+",
     amount: "450ml",
     doctorName: "Dr. Dre",

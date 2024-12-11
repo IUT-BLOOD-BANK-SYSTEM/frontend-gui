@@ -1,11 +1,12 @@
 import React from "react";
 import banner from "../assets/banner.svg";
 import TableData from "../components/reusable/TableData";
-import { Button } from "../components/ui/button";
-import { CirclePlus, Edit, Edit2, Trash } from "lucide-react";
+import HospitalDialog from "../components/reusable/HospitalDialog";
+import { Trash } from "lucide-react";
 
 const columnData = [
   { label: "ID", key: "id" },
+  { label: "Name", key: "name" },
   { label: "Region", key: "region" },
   { label: "Head nurse", key: "headNurse" },
   { label: "Phone", key: "phone" },
@@ -15,65 +16,70 @@ const columnData = [
 const rowData = [
   {
     id: "96127984",
+    name: "ZiyoUz",
     region: "Tashkent",
     headNurse: "Anna Tomskova",
     phone: "+998903457856",
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
   },
   {
     id: "96127984",
+    name: "ZiyoUz",
     region: "Tashkent",
     headNurse: "Anna Tomskova",
     phone: "+998903457856",
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
   },
   {
     id: "96127984",
+    name: "ZiyoUz",
     region: "Tashkent",
     headNurse: "Anna Tomskova",
     phone: "+998903457856",
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
   },
   {
     id: "96127984",
+    name: "ZiyoUz",
     region: "Tashkent",
     headNurse: "Anna Tomskova",
     phone: "+998903457856",
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
   },
   {
     id: "96127984",
+    name: "ZiyoUz",
     region: "Tashkent",
     headNurse: "Anna Tomskova",
     phone: "+998903457856",
     address: "Mirzo Ulugbek, Ziyolilar street",
     action: (
       <div className="flex gap-5">
-        <Edit2 color="#D21F3C" className=" cursor-pointer" size={20} />
+        <HospitalDialog title="Edit hospital data" />
         <Trash color="#D21F3C" className=" cursor-pointer" size={20} />
       </div>
     ),
@@ -93,11 +99,12 @@ const AdminDashboard = () => {
 
       <div className="flex flex-col gap-10">
         <h1 className="font-semibold text-xl">Hospitals</h1>
-        <div className="flex flex-col gap-10 items-end">
-          <TableData columns={columnData} rows={rowData} />
-          <Button className="bg-success flex items-center px-10 py-5 gap-x-2 text-lg font-semibold hover:bg-emerald-600">
-            <CirclePlus /> Add
-          </Button>
+        <div className="flex flex-col gap-10 items-end ">
+          <div className="w-full">
+            <TableData columns={columnData} rows={rowData} />
+          </div>
+
+          <HospitalDialog title="Add hospital" buttonText="Add" />
         </div>
       </div>
     </section>
