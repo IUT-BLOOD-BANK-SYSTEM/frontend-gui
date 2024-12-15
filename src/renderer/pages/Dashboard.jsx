@@ -5,7 +5,7 @@ import DoctorDashboard from "../components/dashboard/DoctorDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
 
 const Dashboard = () => {
-  const role = localStorage.getItem("storedData");
+  const {role} = JSON.parse(localStorage.getItem("user"));
 
   switch (role) {
     case "user":

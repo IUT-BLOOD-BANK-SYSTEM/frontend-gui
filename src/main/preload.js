@@ -1,6 +1,7 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electron", {
-  sendMessage: (message) => ipcRenderer.send("message", message),
-  onMessage: (callback) => ipcRenderer.on("message", callback),
+  sendTCPMessage: (message) => ipcRenderer.send("send-tcp-message", message),
+  onTCPMessage: (callback) =>
+    ipcRenderer.on("tcp-data", (_event, data) => callback(data)),
 });

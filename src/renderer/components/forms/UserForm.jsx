@@ -1,17 +1,67 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import FormField from "../reusable/FormField";
 import { bloodTypes } from "../../lib/utils";
 import SubmitButton from "../reusable/SubmitButton";
 import SignUpFooter from "../reusable/SignUpFooter";
 import Heading from "../reusable/Heading";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const UserForm = () => {
+  const formRef = useRef(null);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const formData = new FormData(formRef.current);
+    const data = Object.fromEntries(formData.entries());
+
+    if (data.password !== data.confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    const payload = {
+      type: "user_register",
+      payload: {
+        firstName: data.firstName,
+        secondName: data.secondName,
+        birth_date: data.birth_date,
+        phoneNumber: data.phoneNumber,
+        email: data.email,
+        address: data.address,
+        bloodType: data.bloodType,
+        diseases: data.diseases,
+        password: data.password,
+      },
+    };
+
+    window.electron.sendTCPMessage(payload);
+    window.electron.onTCPMessage((response) => {
+      if (response.type !== "user_register_response") return;
+      if (response.status === "success") {
+        toast.success("Registration successful!");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ role: "user", token: response.payload.token })
+        );
+        navigate("/dashboard");
+      } else {
+        toast.error(`Registration failed: ${response.message}`);
+      }
+    });
+    setLoading(false);
+    formRef.current.reset();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-1/2">
         <Heading />
-        <form className="space-y-3">
+        <form ref={formRef} className="space-y-3" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-4">
             <FormField
               label="First Name"
@@ -52,6 +102,7 @@ const UserForm = () => {
             label="Address"
             name="address"
             placeholder="e.g. Your Address"
+            required
           />
           <div className="grid grid-cols-2 gap-4">
             <FormField
@@ -84,9 +135,10 @@ const UserForm = () => {
               required
             />
           </div>
-          <Link to="/dashboard">
-            <SubmitButton />
-          </Link>
+          <SubmitButton
+            text={`${loading ? "submitting..." : "Sign Up"}`}
+            disabled={loading}
+          />
         </form>
         <SignUpFooter />
       </div>

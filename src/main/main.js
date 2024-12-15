@@ -1,5 +1,8 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
+const net = require("net");
 const path = require("path");
+
+let socketClient;
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -21,7 +24,41 @@ function createWindow() {
   }
 }
 
-app.on("ready", createWindow);
+app.on("ready", () => {
+  createWindow();
+
+  socketClient = new net.Socket();
+
+  socketClient.connect(8080, "127.0.0.1", () => {
+    console.log("Connected to C socket server via TCP");
+  });
+
+  socketClient.on("data", (data) => {
+    console.log("Received from server:", data.toString());
+
+    BrowserWindow.getAllWindows().forEach((window) => {
+      window.webContents.send("tcp-data", data.toString());
+    });
+  });
+
+  socketClient.on("close", () => {
+    console.log("Connection to server closed");
+  });
+
+  socketClient.on("error", (err) => {
+    console.error("TCP Error:", err.message);
+  });
+
+  ipcMain.on("send-tcp-message", (event, message) => {
+    console.log("Message from renderer:", message);
+
+    if (socketClient && socketClient.writable) {
+      socketClient.write(message + "\n");
+    } else {
+      console.error("Socket not connected or writable");
+    }
+  });
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
