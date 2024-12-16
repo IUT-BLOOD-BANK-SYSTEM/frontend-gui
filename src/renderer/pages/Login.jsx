@@ -2,8 +2,49 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logImg1 from "../assets/login_image.png";
 import Heading from "../components/reusable/Heading";
+import SubmitButton from "../components/reusable/SubmitButton";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [loading, setLoading] = React.useState(false);
+  const formRef = React.useRef(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(formRef.current);
+    const data = Object.fromEntries(formData.entries());
+
+    const payload = {
+      type: "login",
+      payload: {
+        email: data.email,
+        password: data.password,
+      },
+    };
+
+    window.electron.sendTCPMessage(payload);
+    window.electron.onTCPMessage((response) => {
+      if (response.type !== "login_response") return;
+      if (response.status === "success") {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            role: response.payload.role,
+            token: response.payload.token,
+          })
+        );
+        formRef.current.reset();
+        navigate("/dashboard");
+      } else {
+        toast.error(`Login failed: ${response.message}`);
+      }
+    });
+    setLoading(false);
+  };
+
   return (
     <div className="min-h-screen bg-primary grid place-content-center mx-5">
       <div className="flex w-full items-center gap-x-36">
@@ -13,14 +54,15 @@ const Login = () => {
         <div className="flex flex-col flex-1 gap-6">
           <Heading />
 
-          <form action="">
+          <form ref={formRef} onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1 mb-5">
-              <label htmlFor="login" className="text-sm font-semibold">
-                Login*
+              <label htmlFor="email" className="text-sm font-semibold">
+                Email*
               </label>
               <input
-                id="login"
+                id="email"
                 type="text"
+                name="email"
                 required
                 className="border text-black border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -33,23 +75,18 @@ const Login = () => {
               <input
                 id="password"
                 type="password"
+                name="password"
                 required
                 className="border text-black border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
+            <div className="flex justify-center mt-5 text-center">
+              <SubmitButton
+                text={`${loading ? "submitting..." : "Login"}`}
+                disabled={loading}
+              />
+            </div>
           </form>
-
-          <div className="flex justify-center mt-5 text-center">
-            <Link
-              onClick={() => {
-                localStorage.setItem("storedData", "admin");
-              }}
-              to="/dashboard"
-              className="bg-secondary w-full text-white py-2 px-4 rounded-md hover:bg-[#B01733] focus:outline-none focus:ring-2 focus:ring-[#D21F3C]"
-            >
-              Log in
-            </Link>
-          </div>
 
           <div className="flex flex-col items-center gap-2 mt-5">
             <div className="flex gap-2">
