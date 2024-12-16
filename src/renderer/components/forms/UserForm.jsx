@@ -1,16 +1,17 @@
 import React, { useRef, useState } from "react";
 import FormField from "../reusable/FormField";
-import { bloodTypes } from "../../lib/utils";
 import SubmitButton from "../reusable/SubmitButton";
 import SignUpFooter from "../reusable/SignUpFooter";
 import Heading from "../reusable/Heading";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import useGetBloods from "../../hooks/useGetBloods";
 
 const UserForm = () => {
   const formRef = useRef(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { bloods, isLoading } = useGetBloods();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,19 +22,21 @@ const UserForm = () => {
 
     if (data.password !== data.confirmPassword) {
       toast.error("Passwords do not match!");
+      setLoading(false);
       return;
     }
 
     const payload = {
-      type: "user_register",
+      type: "register",
       payload: {
-        firstName: data.firstName,
-        secondName: data.secondName,
-        birth_date: data.birth_date,
-        phoneNumber: data.phoneNumber,
+        first_name: data.firstName,
+        second_name: data.secondName,
+        date_of_birth: data.birth_date.toString(),
+        phone_number: data.phoneNumber,
         email: data.email,
         address: data.address,
-        bloodType: data.bloodType,
+        blood_type_id: data.bloodType,
+        passport_number: data.passportNumber,
         diseases: data.diseases,
         password: data.password,
       },
@@ -41,20 +44,20 @@ const UserForm = () => {
 
     window.electron.sendTCPMessage(payload);
     window.electron.onTCPMessage((response) => {
-      if (response.type !== "user_register_response") return;
+      if (response.type !== "register_response") return;
       if (response.status === "success") {
         toast.success("Registration successful!");
         localStorage.setItem(
           "user",
           JSON.stringify({ role: "user", token: response.payload.token })
         );
+        formRef.current.reset();
         navigate("/dashboard");
       } else {
         toast.error(`Registration failed: ${response.message}`);
       }
     });
     setLoading(false);
-    formRef.current.reset();
   };
 
   return (
@@ -91,13 +94,22 @@ const UserForm = () => {
               required
             />
           </div>
-          <FormField
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="example@mail.com"
-            required
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="example@mail.com"
+              required
+            />
+            <FormField
+              label="Passport Number"
+              name="passportNumber"
+              type="text"
+              placeholder="AA1234567"
+              required
+            />
+          </div>
           <FormField
             label="Address"
             name="address"
@@ -109,7 +121,7 @@ const UserForm = () => {
               type="select"
               label="Blood Type"
               name="bloodType"
-              options={bloodTypes}
+              options={bloods}
               required
             />
             <FormField
