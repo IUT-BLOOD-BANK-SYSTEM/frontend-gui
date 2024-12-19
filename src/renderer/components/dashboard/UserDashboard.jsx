@@ -6,32 +6,8 @@ import MedicalInfoCard from "../reusable/MedicalInfoCard";
 import { Link } from "react-router-dom";
 import TableData from "../reusable/TableData";
 import SeeMoreButton from "../reusable/SeeMoreButton";
+import useGetUserHistory from "../../hooks/useGetUserHistory";
 
-// const appointmentsData = [
-//   {
-//     id: 1,
-//     date: 28,
-//     time: "15:00",
-//     status: "Approved",
-//     month: "October",
-//   },
-
-//   {
-//     id: 2,
-//     date: 28,
-//     time: "15:00",
-//     status: "Approved",
-//     month: "October",
-//   },
-
-//   {
-//     id: 3,
-//     date: 28,
-//     time: "15:00",
-//     status: "Approved",
-//     month: "October",
-//   },
-// ];
 
 const columnData = [
   { label: "Date", key: "date" },
@@ -39,86 +15,10 @@ const columnData = [
   { label: "Hospital Name", key: "hospitalName" },
   { label: "Doctor Name", key: "doctorName" },
 ];
-// const rowData = [
-//   {
-//     id: 1,
-//     date: "10.28.2024",
-//     status: "Approved",
-//     hospitalName: "HealthBridge",
-//     doctorName: "Dr. Dre",
-//   },
-//   {
-//     id: 2,
-//     date: "10.28.2024",
-//     status: "Approved",
-//     hospitalName: "HealthBridge",
-//     doctorName: "Dr. Dre",
-//   },
-//   {
-//     id: 3,
-//     date: "10.28.2024",
-//     status: "Approved",
-//     hospitalName: "HealthBridge",
-//     doctorName: "Dr. Dre",
-//   },
-//   {
-//     id: 4,
-//     date: "10.28.2024",
-//     status: "Approved",
-//     hospitalName: "HealthBridge",
-//     doctorName: "Dr. Dre",
-//   },
-//   {
-//     id: 5,
-//     date: "10.28.2024",
-//     status: "Approved",
-//     hospitalName: "HealthBridge",
-//     doctorName: "Dr. Dre",
-//   },
-// ];
 
 const UserDashboard = () => {
-  const [appointmentsData, setAppointmentsData] = useState([]);
-  const [donationHistory, setDonationHistory] = useState([]);
-  const [acceptanceHistory, setAcceptanceHistory] = useState([]);
-
-  useEffect(() => {
-    window.electron.sendTCPMessage({ type: "get_upcoming_appointments" });
-    window.electron.onTCPMessage((response) => {
-      if (response.type === "get_upcoming_appointments") {
-        if (response.status === "success") {
-          setAppointmentsData(response.payload);
-        } else {
-          console.error("Failed to fetch appointments:", response.message);
-        }
-      }
-    });
-
-    window.electron.sendTCPMessage({ type: "blood_donation_history" });
-    window.electron.onTCPMessage((response) => {
-      if (response.type === "blood_donation_history") {
-        if (response.status === "success") {
-          setDonationHistory(response.payload);
-        } else {
-          console.error("Failed to fetch donation history:", response.message);
-        }
-      }
-    });
-
-    window.electron.sendTCPMessage({ type: "blood_acceptance_history" });
-    window.electron.onTCPMessage((response) => {
-      if (response.type === "blood_acceptance_history") {
-        if (response.status === "success") {
-          setAcceptanceHistory(response.payload);
-        } else {
-          console.error(
-            "Failed to fetch acceptance history:",
-            response.message
-          );
-        }
-      }
-    });
-  }, []);
+  
+  const {appointmentsData,donationHistory, acceptanceHistory}=useGetUserHistory()
 
   return (
     <section className="flex flex-col gap-16">
