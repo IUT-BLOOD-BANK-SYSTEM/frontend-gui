@@ -4,6 +4,7 @@ import logImg1 from "../assets/login_image.png";
 import Heading from "../components/reusable/Heading";
 import SubmitButton from "../components/reusable/SubmitButton";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Login = () => {
   const [loading, setLoading] = React.useState(false);
@@ -31,10 +32,7 @@ const Login = () => {
       if (response.status === "success") {
         localStorage.setItem(
           "user",
-          JSON.stringify({
-            role: response.payload.role,
-            token: response.payload.token,
-          })
+          JSON.stringify({...response.payload})
         );
         formRef.current.reset();
         navigate("/dashboard");
