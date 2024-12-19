@@ -10,7 +10,7 @@ const DoctorForm = () => {
   const formRef = useRef(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { customHospitals, isLoading } = useGetHospital();
+  const { customHospitals } = useGetHospital();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ const DoctorForm = () => {
     }
 
     const payload = {
-      type: "register",
+      type: "doctor_register",
       payload: {
         first_name: data.firstName,
         second_name: data.secondName,
@@ -41,7 +41,7 @@ const DoctorForm = () => {
 
     window.electron.sendTCPMessage(payload);
     window.electron.onTCPMessage((response) => {
-      if (response.type !== "register_response") return;
+      if (response.type !== "doctor_register") return;
       if (response.status === "success") {
         toast.success("Registration successful!");
         localStorage.setItem(
