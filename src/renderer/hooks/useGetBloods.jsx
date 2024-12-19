@@ -4,7 +4,6 @@ export default function useGetBloods() {
   const [bloods, setBloods] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
     window.electron.sendTCPMessage({ type: "get_list_blood_type" });
     window.electron.onTCPMessage((response) => {
       if (response.type === "get_list_blood_type") {
@@ -21,5 +20,5 @@ export default function useGetBloods() {
     });
   }, []);
 
-  return { bloods, isLoading };
+  return { bloods };
 }

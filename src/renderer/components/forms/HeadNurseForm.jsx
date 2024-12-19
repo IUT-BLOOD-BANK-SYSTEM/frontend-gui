@@ -1,17 +1,68 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import FormField from "../reusable/FormField";
 import Heading from "../reusable/Heading";
 import SignUpFooter from "../reusable/SignUpFooter";
 import SubmitButton from "../reusable/SubmitButton";
-import { hospitals } from "../../lib/utils";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import useGetHospital from "../../hooks/useGetHospital";
 
 const HeadNurseForm = () => {
+  const formRef = useRef(null);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { customHospitals } = useGetHospital();
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const formData = new FormData(formRef.current);
+    const data = Object.fromEntries(formData.entries());
+
+    if (data.password !== data.confirmPassword) {
+      toast.error("Passwords do not match!");
+      setLoading(false);
+      return;
+    }
+
+    const payload = {
+      type: "head_nurse_register",
+      payload: {
+        first_name: data.firstName,
+        second_name: data.secondName,
+        date_of_birth: data.birth_date.toString(),
+        phone_number: data.phoneNumber,
+        email: data.email,
+        hospital_id: data.hospital,
+        password: data.password,
+      },
+    };
+
+    window.electron.sendTCPMessage(payload);
+    window.electron.onTCPMessage((response) => {
+      console.log(response)
+      if (response.type !== "head_nurse_register") return;
+      if (response.status === "success") {
+        toast.success("Registration successful!");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ role: "headNurse", token: response.payload.token })
+        );
+        navigate("/dashboard");
+      } else {
+        toast.error(`Registration failed: ${response.message}`);
+      }
+    });
+    setLoading(false);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-1/2">
         <Heading />
-        <form className="space-y-3">
+        <form ref={formRef} className="space-y-3" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-4">
             <FormField
               label="First Name"
@@ -29,11 +80,16 @@ const HeadNurseForm = () => {
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <FormField label="Date of Birth" type="date" name="dob" required />
+          <FormField
+              label="Date of Birth"
+              name="birth_date"
+              type="date"
+              required
+            />
             <FormField
               label="Phone Number"
               type="tel"
-              name="phone"
+              name="phoneNumber"
               placeholder="+998901234567"
               required
             />
@@ -49,7 +105,7 @@ const HeadNurseForm = () => {
             label="Hospital"
             type="select"
             name="hospital"
-            options={hospitals}
+            options={customHospitals}
             required
           />
           <div className="grid grid-cols-2 gap-4">
@@ -69,9 +125,10 @@ const HeadNurseForm = () => {
             />
           </div>
 
-          <Link to="/dashboard">
-            <SubmitButton />
-          </Link>
+            <SubmitButton
+             text={`${loading ? "submitting..." : "Sign Up"}`}
+             disabled={loading}
+            />
         </form>
         <SignUpFooter />
       </div>
