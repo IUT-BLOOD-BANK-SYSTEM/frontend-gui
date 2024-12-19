@@ -29,7 +29,7 @@ app.on("ready", () => {
 
   socketClient = new net.Socket();
 
-  socketClient.connect(8080, "192.168.19.94", () => {
+  socketClient.connect(8080, "192.168.16.81", () => {
     console.log("Connected to C socket server via TCP");
   });
 
