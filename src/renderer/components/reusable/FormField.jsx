@@ -10,12 +10,13 @@ const FormField = ({
   bgColor,
   textColor,
   borderColor,
+  labelColor,
 }) => {
   return (
     <div className="w-full">
       <label
         className={`block ${
-          textColor != undefined ? textColor : `text-white`
+          labelColor != undefined ? labelColor : `text-white`
         } text-sm font-medium mb-2`}
       >
         {label}
