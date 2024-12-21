@@ -7,7 +7,6 @@ export default function useGetHospital() {
   useEffect(() => {
     window.electron.sendTCPMessage({ type: "get_list_hospital" });
     window.electron.onTCPMessage((response) => {
-      console.log(response);
       if (response.type === "get_list_hospital") {
         if (response.status === "success") {
           const properData = response.payload.hospitals.map((hospital) => ({
