@@ -12,7 +12,7 @@ import {
   HospitalIcon,
   BriefcaseMedicalIcon,
 } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const sharedRoutes = {
   home: { name: "Home", icon: <House />, path: "/dashboard" },
@@ -74,8 +74,9 @@ export const navItems = {
 
 export const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
-  const role = localStorage.getItem("storedData") || "user";
+  const { role } = JSON.parse(localStorage.getItem("user"));
   const roleNavItems = navItems[role];
 
   const renderNavItem = (item, index) => (
@@ -95,6 +96,11 @@ export const Sidebar = () => {
     </li>
   );
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   return (
     <aside className="w-[325px] h-screen gap-10 sticky top-0 px-10 py-[60px] flex flex-col justify-between">
       <div>
@@ -110,12 +116,14 @@ export const Sidebar = () => {
           </ul>
         </nav>
       </div>
-      <Link to="/">
-        <button type="button" className="flex space-x-2 text-secondary">
-          <LogOut />
-          <span>Log Out</span>
-        </button>
-      </Link>
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="flex space-x-2 text-secondary"
+      >
+        <LogOut />
+        <span>Log Out</span>
+      </button>
     </aside>
   );
 };

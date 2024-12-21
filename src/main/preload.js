@@ -1,16 +1,26 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electron", {
-  sendTCPMessage: (message) =>
-    ipcRenderer.send("send-tcp-message", JSON.stringify(message)),
-  onTCPMessage: (callback) =>
+  sendTCPMessage: (message) => {
+    try {
+      ipcRenderer.send("send-tcp-message", JSON.stringify(message));
+    } catch (error) {
+      console.error("Failed to send message:", error.message);
+    }
+  },
+
+  onTCPMessage: (callback) => {
     ipcRenderer.on("tcp-data", (_event, data) => {
-      console.log("Raw TCP data:", data);
       try {
-        const jsonData = JSON.parse(data.trim());
-        callback(jsonData);
+        callback(data); // Receive already parsed JSON from main.js
       } catch (error) {
-        console.error("JSON parse error:", error.message, "Data:", data);
+        console.error(
+          "Error processing data in preload.js:",
+          error.message,
+          "Data:",
+          data
+        );
       }
-    }),
+    });
+  },
 });

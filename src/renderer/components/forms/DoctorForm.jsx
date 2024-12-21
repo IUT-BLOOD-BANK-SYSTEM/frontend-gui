@@ -46,7 +46,7 @@ const DoctorForm = () => {
         toast.success("Registration successful!");
         localStorage.setItem(
           "user",
-          JSON.stringify({ role: "doctor", token: response.payload.token })
+          JSON.stringify({ ...response.payload, role: "doctor" })
         );
         formRef.current.reset();
         navigate("/dashboard");

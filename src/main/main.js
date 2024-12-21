@@ -28,16 +28,43 @@ app.on("ready", () => {
   createWindow();
 
   socketClient = new net.Socket();
-
-  socketClient.connect(8080, "192.168.16.81", () => {
+  socketClient.connect(8080, "192.168.16.110", () => {
     console.log("Connected to C socket server via TCP");
   });
 
-  socketClient.on("data", (data) => {
-    console.log("Received from server:", data.toString());
+  let buffer = "";
 
-    BrowserWindow.getAllWindows().forEach((window) => {
-      window.webContents.send("tcp-data", data.toString());
+  socketClient.on("data", (data) => {
+    buffer += data.toString();
+
+    const completeMessages = [];
+    let boundaryIndex;
+
+    while ((boundaryIndex = buffer.indexOf("\n")) !== -1) {
+      const completeMessage = buffer.slice(0, boundaryIndex);
+      buffer = buffer.slice(boundaryIndex + 1);
+      completeMessages.push(completeMessage.trim());
+    }
+
+    completeMessages.forEach((message) => {
+      if (message.trim() === "") {
+        return;
+      }
+
+      try {
+        const parsedData = JSON.parse(message);
+
+        BrowserWindow.getAllWindows().forEach((window) => {
+          window.webContents.send("tcp-data", parsedData);
+        });
+      } catch (error) {
+        console.error(
+          "JSON parse error outside loop:",
+          error.message,
+          "Data:",
+          message
+        );
+      }
     });
   });
 

@@ -13,7 +13,6 @@ const HeadNurseForm = () => {
   const [loading, setLoading] = useState(false);
   const { customHospitals } = useGetHospital();
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -42,13 +41,13 @@ const HeadNurseForm = () => {
 
     window.electron.sendTCPMessage(payload);
     window.electron.onTCPMessage((response) => {
-      console.log(response)
+      console.log(response);
       if (response.type !== "head_nurse_register") return;
       if (response.status === "success") {
         toast.success("Registration successful!");
         localStorage.setItem(
           "user",
-          JSON.stringify({ role: "headNurse", token: response.payload.token })
+          JSON.stringify({ ...response.payload, role: "headNurse" })
         );
         navigate("/dashboard");
       } else {
@@ -80,7 +79,7 @@ const HeadNurseForm = () => {
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
-          <FormField
+            <FormField
               label="Date of Birth"
               name="birth_date"
               type="date"
@@ -125,10 +124,10 @@ const HeadNurseForm = () => {
             />
           </div>
 
-            <SubmitButton
-             text={`${loading ? "submitting..." : "Sign Up"}`}
-             disabled={loading}
-            />
+          <SubmitButton
+            text={`${loading ? "submitting..." : "Sign Up"}`}
+            disabled={loading}
+          />
         </form>
         <SignUpFooter />
       </div>

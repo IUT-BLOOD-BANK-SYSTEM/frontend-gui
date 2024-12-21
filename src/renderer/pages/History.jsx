@@ -4,7 +4,7 @@ import DoctorHistory from "../components/history/DoctorHistory";
 import UserHistoryDonation from "../components/history/UserHistoryDonation";
 
 const History = () => {
-  const role = localStorage.getItem("storedData");
+  const { role } = JSON.parse(localStorage.getItem("user"));
   switch (role) {
     case "user":
       return <UserHistoryDonation />;

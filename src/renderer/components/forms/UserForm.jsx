@@ -11,7 +11,7 @@ const UserForm = () => {
   const formRef = useRef(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { bloods, isLoading } = useGetBloods();
+  const { bloods } = useGetBloods();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ const UserForm = () => {
         toast.success("Registration successful!");
         localStorage.setItem(
           "user",
-          JSON.stringify({ role: "user", token: response.payload.token })
+          JSON.stringify({ ...response.payload, role: "user" })
         );
         formRef.current.reset();
         navigate("/dashboard");

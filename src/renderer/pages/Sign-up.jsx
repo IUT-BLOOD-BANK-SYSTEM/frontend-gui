@@ -8,13 +8,9 @@ const SignUp = () => {
   const [step, setStep] = useState(1);
   const [role, setRole] = useState("");
 
-  console.log(role);
-
   if (step === 1) {
     return <Role setStep={setStep} setRole={setRole} role={role} />;
   }
-
-  localStorage.setItem("storedData", role);
 
   switch (role) {
     case "user":
