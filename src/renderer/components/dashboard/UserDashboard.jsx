@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CirclePlus } from "lucide-react";
 import banner from "../../assets/banner.svg";
 import UpcomingAppointmentsCard from "../reusable/UpcomingAppointmentsCard";
@@ -8,7 +8,6 @@ import TableData from "../reusable/TableData";
 import SeeMoreButton from "../reusable/SeeMoreButton";
 import useGetUserHistory from "../../hooks/useGetUserHistory";
 
-
 const columnData = [
   { label: "Date", key: "date" },
   { label: "Status", key: "status" },
@@ -17,8 +16,8 @@ const columnData = [
 ];
 
 const UserDashboard = () => {
-  
-  const {appointmentsData,donationHistory, acceptanceHistory}=useGetUserHistory()
+  const { appointmentsData, donationHistory, acceptanceHistory } =
+    useGetUserHistory();
 
   return (
     <section className="flex flex-col gap-16">

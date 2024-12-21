@@ -3,7 +3,7 @@ import Heading from "../reusable/Heading";
 import FormField from "../reusable/FormField";
 import SubmitButton from "../reusable/SubmitButton";
 import SignUpFooter from "../reusable/SignUpFooter";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useGetHospital from "../../hooks/useGetHospital";
 
 const DoctorForm = () => {

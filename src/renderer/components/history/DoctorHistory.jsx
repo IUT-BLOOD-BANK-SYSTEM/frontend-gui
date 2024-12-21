@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TableData from "../reusable/TableData";
 import useGetDoctorHistory from "../../hooks/useGetDoctorHistory";
 
@@ -12,11 +12,9 @@ const columnData = [
   { label: "Passport ID", key: "passportID" },
 ];
 
-
-
 const DoctorHistory = () => {
-  const {requestHistory}=useGetDoctorHistory()
-  console.log(requestHistory)
+  const { requestHistory } = useGetDoctorHistory();
+  console.log(requestHistory);
 
   return (
     <div className="flex flex-col gap-6">
