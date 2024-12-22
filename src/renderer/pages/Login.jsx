@@ -28,6 +28,7 @@ const Login = () => {
 
     window.electron.sendTCPMessage(payload);
     window.electron.onTCPMessage((response) => {
+      console.log(response)
       if (response.type !== "login_response") return;
       if (response.status === "success") {
         localStorage.setItem(
