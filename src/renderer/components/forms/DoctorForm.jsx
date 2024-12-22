@@ -5,6 +5,7 @@ import SubmitButton from "../reusable/SubmitButton";
 import SignUpFooter from "../reusable/SignUpFooter";
 import { useNavigate } from "react-router-dom";
 import useGetHospital from "../../hooks/useGetHospital";
+import { toast } from "sonner";
 
 const DoctorForm = () => {
   const formRef = useRef(null);
@@ -41,7 +42,7 @@ const DoctorForm = () => {
 
     window.electron.sendTCPMessage(payload);
     window.electron.onTCPMessage((response) => {
-      if (response.type !== "doctor_register") return;
+      if (response.type !== "create_doctor") return;
       if (response.status === "success") {
         toast.success("Registration successful!");
         localStorage.setItem(

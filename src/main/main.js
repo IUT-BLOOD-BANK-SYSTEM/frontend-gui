@@ -28,7 +28,8 @@ app.on("ready", () => {
   createWindow();
 
   socketClient = new net.Socket();
-  socketClient.connect(8080, "192.168.16.110", () => {
+
+  socketClient.connect(10207, "0.tcp.in.ngrok.io", () => {
     console.log("Connected to C socket server via TCP");
   });
 

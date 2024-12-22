@@ -4,8 +4,7 @@ export default function useGetBloods() {
   const [bloods, setBloods] = useState([]);
 
   useEffect(() => {
-    window.electron.sendTCPMessage({ type: "get_list_blood_type" });
-    window.electron.onTCPMessage((response) => {
+    const handleResponse = (response) => {
       if (response.type === "get_list_blood_type") {
         if (response.status === "success") {
           const properData = response.payload.blood_types.map((blood) => ({
@@ -17,7 +16,12 @@ export default function useGetBloods() {
           console.error("Failed to fetch blood types:", response.message);
         }
       }
-    });
+    };
+    window.electron.sendTCPMessage({ type: "get_list_blood_type" });
+    window.electron.onTCPMessage(handleResponse);
+    return () => {
+      window.electron.offTCPMessage(handleResponse);
+    };
   }, []);
 
   return { bloods };
