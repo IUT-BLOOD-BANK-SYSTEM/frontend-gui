@@ -214,7 +214,7 @@ const HeadNurseProfile = () => {
             />
           </div>
 
-          <SubmitButton text={"Save Changes"} />
+          <SubmitButton text={"Save Changes"} disabled={!isChanged} />
         </form>
       </div>
     </div>
