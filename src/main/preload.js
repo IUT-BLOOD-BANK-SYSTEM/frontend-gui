@@ -23,4 +23,7 @@ contextBridge.exposeInMainWorld("electron", {
       }
     });
   },
+  offTCPMessage: (callback) => {
+    ipcRenderer.removeListener("tcp-data", callback);
+  },
 });

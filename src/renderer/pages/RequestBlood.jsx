@@ -1,20 +1,72 @@
 import BloodInfoCard from "../components/reusable/BloodInfoCard";
 import SubmitButton from "../components/reusable/SubmitButton";
 import FormField from "../components/reusable/FormField";
-import { hospitals } from "../lib/utils";
-
-const bloodData = [
-  { bloodType: "A+", bloodAmount: "12.5 L" },
-  { bloodType: "A-", bloodAmount: "0.5 L" },
-  { bloodType: "AB+", bloodAmount: "16.0 L" },
-  { bloodType: "AB-", bloodAmount: "14.5 L" },
-  { bloodType: "O+", bloodAmount: "2.5 L" },
-  { bloodType: "O-", bloodAmount: "2.5 L" },
-  { bloodType: "B+", bloodAmount: "2.5 L" },
-  { bloodType: "B-", bloodAmount: "2.5 L" },
-];
+import { useRef, useState, useEffect } from "react";
+import useGetHospital from "../hooks/useGetHospital";
+import useGetBloods from "../hooks/useGetBloods";
+import useGetBloodInventory from "../hooks/useGetBloodInventory";
+import { toast } from "sonner";
 
 const RequestBlood = () => {
+  const { customHospitals } = useGetHospital();
+  const { bloods } = useGetBloods();
+  const formRef = useRef(null);
+  const [selectedHospital, setSelectedHospital] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  console.log(selectedHospital);
+
+  const { user_id } = JSON.parse(localStorage.getItem("user"));
+
+  //console.log(bloodInventory);
+  // useEffect(() => {
+  //   window.electron.sendTCPMessage({ type: "get_list_blood_inventory" });
+  //   window.electron.onTCPMessage((response) => {
+  //     console.log(response);
+  //     if (response.type === "get_list_blood_inventory") {
+  //       if (response.status === "success") {
+  //         setBloodInventory(response.payload.blood_inventories);
+  //       } else {
+  //         console.error("Failed to fetch hospitals:", response.message);
+  //       }
+  //     }
+  //   });
+  // }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const formData = new FormData(formRef.current);
+    const data = Object.fromEntries(formData.entries());
+
+    const payload = {
+      type: "create_blood_request",
+      payload: {
+        doctor_id: user_id,
+        hospital_id: selectedHospital,
+        blood_type_id: data.bloodType,
+        user_passport_number: data.passportId,
+        user_name: data.patientName,
+        quantity: parseInt(data.amount),
+      },
+    };
+
+    window.electron.sendTCPMessage(payload);
+    window.electron.onTCPMessage((response) => {
+      console.log(response);
+
+      if (response.type !== "create_blood_request") return;
+      if (response.status === "success") {
+        toast.success("Request sent!");
+        formRef.current.reset();
+      } else {
+        toast.error(`Request error: ${response.message}`);
+      }
+    });
+    setLoading(false);
+  };
+
   return (
     <section className="flex flex-col gap-12 py-10">
       <div className="w-[673px] mx-auto">
@@ -22,65 +74,78 @@ const RequestBlood = () => {
           label="Select hospital to see available bloods"
           type="select"
           name="hospital"
-          options={hospitals}
+          options={customHospitals}
+          handleChange={(e) => {
+            setSelectedHospital(e.target.value);
+          }}
         />
       </div>
-      <div>
-        <h1 className="font-semibold text-xl mb-8">Blood available:</h1>
-        <div className="grid grid-cols-4 gap-5">
-          {bloodData.map((item) => (
-            <BloodInfoCard
-              bloodType={item.bloodType}
-              bloodAmount={item.bloodAmount}
-            />
-          ))}
+      <div className="w-[673px] mx-auto">
+        <div>
+          <h1 className="font-semibold text-xl mb-8">Blood available:</h1>
+          {/* <BloodInfoCard /> */}
         </div>
       </div>
-      <div className="flex flex-col gap-6 items-center justify-center">
+      <div className="flex flex-col gap-6 items-center justify-center ">
         <h1 className="font-semibold text-xl text-center">
           Please fill out this form
         </h1>
-        <div className="grid grid-cols-2 gap-5 w-3/4">
-          <div className="flex flex-col gap-2">
-            <label for="dateAppointment" className="text-sm font-medium">
-              Blood Type
-            </label>
-            <input
-              className="border border-white w-full h-12 flex justify-center items-center rounded-lg text-black p-3"
-              required
-            />
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="w-3/4 flex flex-col gap-3"
+        >
+          <div className="flex gap-3 w-full">
+            <div className="flex flex-col gap-2 w-1/2">
+              <FormField
+                name={"bloodType"}
+                label={"Blood type"}
+                bgColor={"bg-white "}
+                textColor={"text-black"}
+                labelColor={"text-white"}
+                type="select"
+                options={bloods}
+              />
+            </div>
+            <div className="flex flex-col gap-2 w-1/2">
+              <FormField
+                name={"amount"}
+                label={"Amount of blood (ml)"}
+                bgColor={"bg-white "}
+                textColor={"text-black"}
+                labelColor={"text-white"}
+                type="number"
+                required
+              />
+            </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <label for="dateAppointment" className="text-sm font-medium">
-              Amount of Blood (ml)
-            </label>
-            <input
-              className="border border-white w-full h-12 flex justify-center items-center rounded-lg text-black p-3"
-              required
-            />
+
+          <div className="flex gap-3 w-full">
+            <div className="flex flex-col gap-2 w-1/2">
+              <FormField
+                name={"passportId"}
+                label={"Passport ID of patient"}
+                bgColor={"bg-white "}
+                textColor={"text-black"}
+                labelColor={"text-white"}
+              />
+            </div>
+            <div className="flex flex-col gap-2 w-1/2">
+              <FormField
+                name={"patientName"}
+                label={"Name of patient"}
+                bgColor={"bg-white "}
+                textColor={"text-black"}
+                labelColor={"text-white"}
+              />
+            </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <label for="dateAppointment" className="text-sm font-medium">
-              Passport ID of patient
-            </label>
-            <input
-              className="border border-white w-full h-12 flex justify-center items-center rounded-lg text-black p-3"
-              required
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label for="dateAppointment" className="text-sm font-medium">
-              Name of patient
-            </label>
-            <input
-              className="border border-white w-full h-12 flex justify-center items-center rounded-lg text-black p-3"
-              required
-            />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 gap-3 w-3/4">
-          <SubmitButton text={"Send Request"} />
-        </div>
+
+          <SubmitButton
+            text={`${loading ? "requesting..." : "Request"}`}
+            disabled={loading}
+          />
+        </form>
       </div>
     </section>
   );
