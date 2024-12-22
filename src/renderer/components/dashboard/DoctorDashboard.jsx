@@ -2,59 +2,20 @@ import banner from "../../assets/banner.svg";
 import TableData from "../reusable/TableData";
 import SeeMoreButton from "../reusable/SeeMoreButton";
 import { Link } from "react-router-dom";
+import useGetDoctorHistory from "../../hooks/useGetDoctorHistory";
 
 const columnData = [
-  { label: "Date", key: "date" },
+  { label: "Date", key: "created_at" },
+  { label: "Hospital Name", key: "hospital[name]" },
   { label: "Status", key: "status" },
-  { label: "Blood type", key: "bloodType" },
-  { label: "Amount", key: "amount" },
-  { label: "Patient Name", key: "patientName" },
-  { label: "Passport ID", key: "passportID" },
-];
-const rowData = [
-  {
-    date: "10.28.2024",
-    status: "Approved",
-    bloodType: "A+",
-    amount: "350ml",
-    patientName: "Son Heung Min",
-    passportID: "AA090342",
-  },
-  {
-    date: "10.28.2024",
-    status: "Approved",
-    bloodType: "A+",
-    amount: "350ml",
-    patientName: "Son Heung Min",
-    passportID: "AA090342",
-  },
-  {
-    date: "10.28.2024",
-    status: "Rejected",
-    bloodType: "A+",
-    amount: "350ml",
-    patientName: "Son Heung Min",
-    passportID: "AA090342",
-  },
-  {
-    date: "10.28.2024",
-    status: "Rejected",
-    bloodType: "A+",
-    amount: "350ml",
-    patientName: "Son Heung Min",
-    passportID: "AA090342",
-  },
-  {
-    date: "10.28.2024",
-    status: "Approved",
-    bloodType: "A+",
-    amount: "350ml",
-    patientName: "Son Heung Min",
-    passportID: "AA090342",
-  },
+  { label: "Blood Type", key: "blood_type[bloods_type]" },
+  { label: "Amount", key: "quantity" },
+  { label: "Patient Name", key: "user_name" },
+  { label: "Passport ID", key: "user_passport_number" },
 ];
 
 const DoctorDashboard = () => {
+  const { requestHistory } = useGetDoctorHistory();
   return (
     <section className="flex flex-col gap-16">
       <img
@@ -66,7 +27,7 @@ const DoctorDashboard = () => {
         <h1 className="font-semibold text-xl">Request history</h1>
         <TableData
           columns={columnData}
-          rows={rowData}
+          rows={requestHistory}
           hasFilter={true}
           filterColumnKey="status"
         />

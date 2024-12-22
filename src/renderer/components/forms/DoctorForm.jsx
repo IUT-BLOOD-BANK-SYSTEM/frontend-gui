@@ -42,15 +42,13 @@ const DoctorForm = () => {
 
     window.electron.sendTCPMessage(payload);
     window.electron.onTCPMessage((response) => {
-      if (response.type !== "create_doctor") return;
+      console.log(response);
+
+      if (response.type !== "doctor_register") return;
       if (response.status === "success") {
         toast.success("Registration successful!");
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...response.payload, role: "doctor" })
-        );
         formRef.current.reset();
-        navigate("/dashboard");
+        navigate("/");
       } else {
         toast.error(`Registration failed: ${response.message}`);
       }

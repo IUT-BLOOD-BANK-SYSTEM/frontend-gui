@@ -9,29 +9,23 @@ import { toast } from "sonner";
 
 const RequestBlood = () => {
   const { customHospitals } = useGetHospital();
+  console.log(customHospitals);
+
   const { bloods } = useGetBloods();
   const formRef = useRef(null);
-  const [selectedHospital, setSelectedHospital] = useState("");
+  const [selectedHospital, setSelectedHospital] = useState(null);
+
+  useEffect(() => {
+    if (customHospitals?.length > 0) {
+      setSelectedHospital(customHospitals[0].value);
+    }
+  }, [customHospitals]);
+
   const [loading, setLoading] = useState(false);
 
   console.log(selectedHospital);
 
   const { user_id } = JSON.parse(localStorage.getItem("user"));
-
-  //console.log(bloodInventory);
-  // useEffect(() => {
-  //   window.electron.sendTCPMessage({ type: "get_list_blood_inventory" });
-  //   window.electron.onTCPMessage((response) => {
-  //     console.log(response);
-  //     if (response.type === "get_list_blood_inventory") {
-  //       if (response.status === "success") {
-  //         setBloodInventory(response.payload.blood_inventories);
-  //       } else {
-  //         console.error("Failed to fetch hospitals:", response.message);
-  //       }
-  //     }
-  //   });
-  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

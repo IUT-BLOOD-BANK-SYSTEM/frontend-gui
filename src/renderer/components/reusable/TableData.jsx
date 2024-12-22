@@ -57,10 +57,14 @@ const TableData = ({
 
   const getNestedValue = (obj, key) => {
     if (key === "doctorName") {
-      return `${obj.doctor?.first_name || ""} ${obj.doctor?.second_name || ""}`.trim();
+      return `${obj.doctor?.first_name || ""} ${
+        obj.doctor?.second_name || ""
+      }`.trim();
     }
     if (key === "headNurseName") {
-      return `${obj.head_nurse?.first_name || ""} ${obj.head_nurse?.second_name || ""}`.trim();
+      return `${obj.head_nurse?.first_name || ""} ${
+        obj.head_nurse?.second_name || ""
+      }`.trim();
     }
 
     if (!key.includes("[")) return obj[key]; // Handle simple keys.
@@ -142,9 +146,10 @@ const TableData = ({
                           : getNestedValue(row, column.key) === "Pending"
                           ? "bg-gray-500"
                           : "bg-red-500"
-                      }`}></span>
+                      }`}
+                    ></span>
                   )}
-                  {column.key.includes("date")
+                  {column.key.includes("date" || "created_at")
                     ? formatDate(getNestedValue(row, column.key))
                     : getNestedValue(row, column.key) !== undefined
                     ? getNestedValue(row, column.key)

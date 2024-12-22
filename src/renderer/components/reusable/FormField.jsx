@@ -12,6 +12,7 @@ const FormField = ({
   borderColor,
   labelColor,
   handleChange,
+  defaultValue = "",
 }) => {
   return (
     <div className="w-full">
@@ -41,6 +42,7 @@ const FormField = ({
         </select>
       ) : (
         <input
+          defaultValue={defaultValue}
           type={type}
           name={name}
           className={`w-full p-2 border ${

@@ -3,13 +3,13 @@ import TableData from "../reusable/TableData";
 import useGetDoctorHistory from "../../hooks/useGetDoctorHistory";
 
 const columnData = [
-  { label: "Date", key: "date" },
-  { label: "Hospital Name", key: "hospitalName" },
+  { label: "Date", key: "created_at" },
+  { label: "Hospital Name", key: "hospital[name]" },
   { label: "Status", key: "status" },
-  { label: "Blood Type", key: "bloodType" },
-  { label: "Amount", key: "amount" },
-  { label: "Patient Name", key: "patientName" },
-  { label: "Passport ID", key: "passportID" },
+  { label: "Blood Type", key: "blood_type[bloods_type]" },
+  { label: "Amount", key: "quantity" },
+  { label: "Patient Name", key: "user_name" },
+  { label: "Passport ID", key: "user_passport_number" },
 ];
 
 const DoctorHistory = () => {
