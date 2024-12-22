@@ -41,8 +41,11 @@ const Donation = () => {
     const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData.entries());
 
+    const [year, month, day] = data.dateOfAppointment.split("-").map(Number);
+    const [hours, minutes] = data.timeOfAppointment.split(":").map(Number);
+
     const appointmentDate = new Date(
-      `${data.dateOfAppointment}T${data.timeOfAppointment}`
+      Date.UTC(year, month - 1, day, hours, minutes)
     );
 
     const payload = {
