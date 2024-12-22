@@ -14,7 +14,6 @@ const columnData = [
 
 const DoctorHistory = () => {
   const { requestHistory } = useGetDoctorHistory();
-  console.log(requestHistory);
 
   return (
     <div className="flex flex-col gap-6">

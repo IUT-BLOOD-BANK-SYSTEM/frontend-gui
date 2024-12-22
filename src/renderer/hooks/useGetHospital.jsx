@@ -5,9 +5,9 @@ export default function useGetHospital() {
   const [customHospitals, setCustomHospitals] = useState([]);
 
   useEffect(() => {
-    window.electron.sendTCPMessage({ type: "get_list_hospital" });
-    window.electron.onTCPMessage((response) => {
+    const handleResponse = (response) => {
       console.log(response);
+
       if (response.type === "get_list_hospital") {
         if (response.status === "success") {
           const properData = response.payload.hospitals.map((hospital) => ({
@@ -20,7 +20,13 @@ export default function useGetHospital() {
           console.error("Failed to fetch hospitals:", response.message);
         }
       }
-    });
+    };
+    window.electron.sendTCPMessage({ type: "get_list_hospital" });
+    window.electron.onTCPMessage(handleResponse);
+
+    return () => {
+      window.electron.offTCPMessage(handleResponse);
+    };
   }, []);
 
   return { hospitals, customHospitals };

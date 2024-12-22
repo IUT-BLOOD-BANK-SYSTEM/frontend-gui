@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useGetBloodInventory from "../../hooks/useGetBloodInventory";
 
-const BloodInfoCard = ({ bloodType, bloodAmount }) => {
+const BloodInfoCard = () => {
+  const [bloodInventory, setBloodInventory] = useState([]);
+
+  useEffect(() => {
+    window.electron.sendTCPMessage({ type: "get_list_blood_inventory" });
+    window.electron.onTCPMessage((response) => {
+      console.log(response);
+      if (response.type === "get_list_blood_inventory") {
+        if (response.status === "success") {
+          setBloodInventory(response.payload.blood_inventories);
+        } else {
+          console.error("Failed to fetch blood inventory:", response.message);
+        }
+      }
+    });
+  }, []);
+
   return (
-    <div className="bg-[#fff] flex flex-col gap-4 justify-center px-5 h-36 items-center rounded-lg">
-      <h1 className="font-bold text-[#D21F3C] text-4xl">{bloodType}</h1>
-      <div className="font-bold text-lg text-[#D21F3C] px-3 py-1 border-2 rounded-md border-[#D21F3C]">
-        {bloodAmount}
-      </div>
+    <div className="grid grid-cols-4 gap-5">
+      {bloodInventory.map((item, index) => (
+        <div
+          key={index}
+          className="bg-[#fff] flex flex-col gap-4 justify-center px-5 h-36 items-center rounded-lg"
+        >
+          <h1 className="font-bold text-[#D21F3C] text-4xl">
+            {item.blood_type.bloods_type}
+          </h1>
+          <div className="font-bold text-lg text-[#D21F3C] px-3 py-1 border-2 rounded-md border-[#D21F3C]">
+            {item.quantity}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

@@ -11,6 +11,7 @@ const FormField = ({
   textColor,
   borderColor,
   labelColor,
+  handleChange,
 }) => {
   return (
     <div className="w-full">
@@ -23,6 +24,7 @@ const FormField = ({
       </label>
       {type === "select" ? (
         <select
+          onChange={handleChange}
           name={name}
           className={`w-full p-2 px-4 border ${
             borderColor ? borderColor : `border-[#e0e0e0]`
