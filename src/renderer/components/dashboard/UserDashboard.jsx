@@ -8,10 +8,17 @@ import TableData from "../reusable/TableData";
 import SeeMoreButton from "../reusable/SeeMoreButton";
 import useGetUserHistory from "../../hooks/useGetUserHistory";
 
-const columnData = [
-  { label: "Date", key: "date" },
+const columnData1 = [
+  { label: "Date", key: "donation_date" },
   { label: "Status", key: "status" },
-  { label: "Hospital Name", key: "hospitalName" },
+  { label: "Hospital Name", key: `hospital[name]` },
+  { label: "Quantity", key: "quantity" },
+];
+
+const columnData2 = [
+  { label: "Date", key: "acceptance_date" },
+  { label: "Status", key: "status" },
+  { label: "Hospital Name", key: `hospital[name]` },
   { label: "Doctor Name", key: "doctorName" },
 ];
 
@@ -51,14 +58,14 @@ const UserDashboard = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood donation history</h1>
-        <TableData columns={columnData} rows={donationHistory} />
+        <TableData columns={columnData1} rows={donationHistory} />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood acception history</h1>
-        <TableData columns={columnData} rows={acceptanceHistory} />
+        <TableData columns={columnData2} rows={acceptanceHistory} />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>
