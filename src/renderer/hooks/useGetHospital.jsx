@@ -6,8 +6,6 @@ export default function useGetHospital() {
 
   useEffect(() => {
     const handleResponse = (response) => {
-      console.log(response);
-
       if (response.type === "get_list_hospital") {
         if (response.status === "success") {
           const properData = response.payload.hospitals.map((hospital) => ({

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -19,7 +19,6 @@ const TableData = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [filterValue, setFilterValue] = useState("All");
 
-  // Get unique filter values for dropdown (only for the specific column if `filterColumnKey` is provided)
   const uniqueFilterValues = filterColumnKey
     ? [
         "All",
@@ -27,26 +26,6 @@ const TableData = ({
       ]
     : [];
 
-  // Universal search across all columns
-  const handleSearchChange = (e) => {
-    const term = e.target.value;
-    setSearchTerm(term);
-
-    const searchedRows = rows.filter((row) =>
-      columns.some((col) => row[col.key]?.toString().includes(term))
-    );
-
-    // Apply filter if active
-    if (filterValue === "All") {
-      setFilteredRows(searchedRows);
-    } else if (filterColumnKey) {
-      setFilteredRows(
-        searchedRows.filter((row) => row[filterColumnKey] === filterValue)
-      );
-    }
-  };
-
-  // Filtering rows by the dropdown
   const handleFilterChange = (value) => {
     setFilterValue(value);
 
@@ -54,6 +33,53 @@ const TableData = ({
       setFilteredRows(rows);
     } else {
       setFilteredRows(rows.filter((row) => row[filterColumnKey] === value));
+    }
+  };
+
+  useEffect(() => {
+    const filteredBySearch = rows.filter((row) =>
+      columns.some((col) => {
+        const value = getNestedValue(row, col.key); // Get value using the nested getter
+        return value !== undefined && value !== null
+          ? value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+          : false; // Case-insensitive match
+      })
+    );
+
+    if (filterValue === "All") {
+      setFilteredRows(filteredBySearch);
+    } else if (filterColumnKey) {
+      setFilteredRows(
+        filteredBySearch.filter((row) => row[filterColumnKey] === filterValue)
+      );
+    }
+  }, [rows, filterValue, searchTerm, filterColumnKey]);
+
+  const getNestedValue = (obj, key) => {
+    if (key === "doctorName") {
+      return `${obj.doctor?.first_name || ""} ${obj.doctor?.second_name || ""}`.trim();
+    }
+    if (key === "headNurseName") {
+      return `${obj.head_nurse?.first_name || ""} ${obj.head_nurse?.second_name || ""}`.trim();
+    }
+
+    if (!key.includes("[")) return obj[key]; // Handle simple keys.
+
+    return key
+      .split(/\.|\[|\]/)
+      .filter(Boolean)
+      .reduce((acc, curr) => acc && acc[curr], obj);
+  };
+
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+      return `${day}.${month}.${year}`;
+    } catch {
+      return dateString;
     }
   };
 
@@ -87,7 +113,7 @@ const TableData = ({
         <input
           type="text"
           value={searchTerm}
-          onChange={handleSearchChange}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search by anything..."
           className="border border-gray-300 rounded-md px-4 py-2 w-full text-black max-w-md focus:outline-none "
         />
@@ -109,17 +135,20 @@ const TableData = ({
                   {column.key === "status" && (
                     <span
                       className={`w-2.5 h-2.5 rounded-full mr-2 inline-block ${
-                        row[column.key] === "Successful" ||
-                        row[column.key] === "Approved" ||
-                        row[column.key] === "Available"
+                        getNestedValue(row, column.key) === "Successful" ||
+                        getNestedValue(row, column.key) === "Approved" ||
+                        getNestedValue(row, column.key) === "Available"
                           ? "bg-green-500"
-                          : row[column.key] === "Pending"
+                          : getNestedValue(row, column.key) === "Pending"
                           ? "bg-gray-500"
                           : "bg-red-500"
-                      }`}
-                    ></span>
+                      }`}></span>
                   )}
-                  {row[column.key] !== undefined ? row[column.key] : "N/A"}
+                  {column.key.includes("date")
+                    ? formatDate(getNestedValue(row, column.key))
+                    : getNestedValue(row, column.key) !== undefined
+                    ? getNestedValue(row, column.key)
+                    : "N/A"}
                 </TableCell>
               ))}
             </TableRow>
