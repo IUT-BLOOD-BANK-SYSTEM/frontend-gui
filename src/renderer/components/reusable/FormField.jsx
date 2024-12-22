@@ -29,8 +29,8 @@ const FormField = ({
           name={name}
           className={`w-full p-2 px-4 border ${
             borderColor ? borderColor : `border-[#e0e0e0]`
-          } rounded ${bgColor ? bgColor : `bg-primary `} ${
-            textColor ? textColor : `text-white`
+          } rounded ${bgColor ? bgColor : bg - primary} ${
+            textColor ? textColor : text - white
           } focus:outline-none`}
           required={required}
         >
@@ -47,10 +47,10 @@ const FormField = ({
           name={name}
           className={`w-full p-2 border ${
             borderColor ? borderColor : `border-[#e0e0e0]`
-          } rounded ${borderColor ? borderColor : `border-[#e0e0e0]`} ${
-            bgColor ? bgColor : `bg-primary`
+          } rounded ${borderColor ? borderColor : "border-[#e0e0e0]"} ${
+            bgColor ? bgColor : "bg-primary"
           }  ${
-            textColor ? textColor : `text-white`
+            textColor ? textColor : "text-white"
           }  focus:outline-none focus:ring focus:ring-[#e0e0e0]`}
           placeholder={placeholder}
           required={required}

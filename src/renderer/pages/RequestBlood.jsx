@@ -1,10 +1,8 @@
-import BloodInfoCard from "../components/reusable/BloodInfoCard";
 import SubmitButton from "../components/reusable/SubmitButton";
 import FormField from "../components/reusable/FormField";
 import { useRef, useState, useEffect } from "react";
 import useGetHospital from "../hooks/useGetHospital";
 import useGetBloods from "../hooks/useGetBloods";
-import useGetBloodInventory from "../hooks/useGetBloodInventory";
 import { toast } from "sonner";
 
 const RequestBlood = () => {

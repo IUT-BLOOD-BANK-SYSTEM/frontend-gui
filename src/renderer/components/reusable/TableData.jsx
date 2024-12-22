@@ -149,7 +149,7 @@ const TableData = ({
                       }`}
                     ></span>
                   )}
-                  {column.key.includes("date" || "created_at")
+                  {column.key.includes("date" || "created_at" || "updated_at")
                     ? formatDate(getNestedValue(row, column.key))
                     : getNestedValue(row, column.key) !== undefined
                     ? getNestedValue(row, column.key)
