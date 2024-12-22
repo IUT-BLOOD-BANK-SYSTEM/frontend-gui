@@ -32,6 +32,7 @@ const Login = () => {
       if (response.status === "success") {
         localStorage.setItem("user", JSON.stringify({ ...response.payload }));
         formRef.current.reset();
+        toast.success("Login successful!");
         navigate("/dashboard");
       } else {
         toast.error(`Login failed: ${response.message}`);
