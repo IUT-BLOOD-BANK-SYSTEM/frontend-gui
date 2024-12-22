@@ -45,11 +45,7 @@ const HeadNurseForm = () => {
       if (response.type !== "head_nurse_register") return;
       if (response.status === "success") {
         toast.success("Registration successful!");
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...response.payload, role: "headNurse" })
-        );
-        navigate("/dashboard");
+        navigate("/");
       } else {
         toast.error(`Registration failed: ${response.message}`);
       }

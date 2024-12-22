@@ -4,6 +4,8 @@ export default function useGetUser(type) {
   const [user, setUser] = useState({});
 
   const handleResponse = (response) => {
+    console.log(response);
+
     if (response.type !== type) return;
     if (response.status === "success") {
       setUser(response.payload);
