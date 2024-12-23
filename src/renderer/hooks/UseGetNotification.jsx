@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function UseGetNotification() {
+export default function useGetNotification() {
   const [Notification, setNotification] = useState([]);
   const { user_id } = JSON.parse(localStorage.getItem("user"));
 
