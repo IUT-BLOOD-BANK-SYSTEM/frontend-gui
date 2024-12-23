@@ -39,10 +39,10 @@ const TableData = ({
   useEffect(() => {
     const filteredBySearch = rows.filter((row) =>
       columns.some((col) => {
-        const value = getNestedValue(row, col.key); // Get value using the nested getter
+        const value = getNestedValue(row, col.key);
         return value !== undefined && value !== null
           ? value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-          : false; // Case-insensitive match
+          : false;
       })
     );
 
@@ -56,6 +56,13 @@ const TableData = ({
   }, [rows, filterValue, searchTerm, filterColumnKey]);
 
   const getNestedValue = (obj, key) => {
+    if (key === "donor[passport_number]") {
+      return obj["donor[passport_number]"]; // Explicitly mapped in hook
+    }
+    if (key === "donorName") {
+      return obj.donorName;
+    }
+
     if (key === "doctorName") {
       return `${obj.doctor?.first_name || ""} ${
         obj.doctor?.second_name || ""
@@ -90,7 +97,6 @@ const TableData = ({
   return (
     <div>
       <div className="flex justify-between items-end mb-4 gap-4">
-        {/* Dropdown Filter (Only if `filterColumnKey` is defined) */}
         {hasFilter && filterColumnKey && (
           <div className="relative w-[200px]">
             <h1 className="mb-1 text-base font-semibold">
@@ -113,7 +119,6 @@ const TableData = ({
           </div>
         )}
 
-        {/* Universal Search Bar */}
         <input
           type="text"
           value={searchTerm}

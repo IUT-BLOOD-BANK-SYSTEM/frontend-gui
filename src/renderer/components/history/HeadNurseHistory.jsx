@@ -6,11 +6,12 @@ import useGetHeadNurseHistory from "../../hooks/useGetHeadNurseHistory";
 
 const columnData = [
   { label: "Date", key: "created_at" },
-  { label: "Doctor's hospital", key: "doctor[hospital]" },
+  { label: "Doctor's hospital", key: "doctor[hospital][name]" },
   { label: "Blood type", key: "blood_type[bloods_type]" },
   { label: "Amount", key: "quantity" },
   { label: "Doctor Name", key: "doctorName" },
   { label: "Patient's ID", key: "user_passport_number" },
+  { label: "Status", key: "status" },
 ];
 
 const columnData2 = [
@@ -33,7 +34,7 @@ const HeadNurseHistory = () => {
           columns={columnData}
           rows={requestHistory}
           hasFilter={true}
-          filterColumnKey="bloodType"
+          filterColumnKey="status"
         />
       </div>
       <div className="space-y-6 mt-20">

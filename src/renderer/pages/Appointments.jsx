@@ -13,55 +13,62 @@ import {
   DialogTrigger,
 } from "../components/ui/dialog";
 import FormField from "../components/reusable/FormField";
-import { bloodTypes } from "../lib/utils";
 import SubmitButton from "../components/reusable/SubmitButton";
+import useGetAppointmentHistory from "../hooks/useGetAppointmentHistory";
+import useGetUser from "../hooks/useGetUser";
+import { toast } from "sonner";
 
 const columnData = [
-  { label: "Date", key: "date" },
+  { label: "Date", key: "appointment_date" },
   { label: "Time", key: "time" },
-  { label: "Passport ID", key: "passportID" },
+  { label: "Passport ID", key: "donor[passport_number]" },
   { label: "Donor's name", key: "donorName" },
   { label: "Status", key: "status" },
 ];
-const rowData = [
-  {
-    date: "28.10.2024",
-    time: "16:25",
-    passportID: "AA0293784",
-    donorName: "Abhijit Tarawade",
-    status: "Approved",
-  },
-  {
-    date: "28.10.2024",
-    time: "16:25",
-    passportID: "AA0293784",
-    donorName: "Abhijit Tarawade",
-    status: "Approved",
-  },
-  {
-    date: "28.11.2024",
-    time: "16:25",
-    passportID: "AA0293784",
-    donorName: "Alesandro Agostini",
-    status: "Pending",
-  },
-  {
-    date: "28.13.2024",
-    time: "16:25",
-    passportID: "AA0293784",
-    donorName: "Alesandro Agostini",
-    status: "Approved",
-  },
-  {
-    date: "28.13.2024",
-    time: "16:25",
-    passportID: "AA0293784",
-    donorName: "Ivan Vasilyevich",
-    status: "Rejected",
-  },
-];
 
 const Appointments = () => {
+  const { appointmentHistory } = useGetAppointmentHistory();
+  const [loading, setLoading] = React.useState(false);
+  const formRef = React.useRef(null);
+  const user = useGetUser("get_by_id_head_nurse");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(formRef.current);
+    const data = Object.fromEntries(formData.entries());
+
+    const [year, month, day] = data.date.split("-").map(Number);
+    const [hours, minutes] = data.time.split(":").map(Number);
+
+    const appointmentDate = new Date(
+      Date.UTC(year, month - 1, day, hours, minutes)
+    );
+
+    const payload = {
+      type: "create_appointment",
+      payload: {
+        unregistered_name: data.fullName,
+        unregistered_passport_number: data.id,
+        appointment_date: appointmentDate.toISOString(),
+        hospital_id: user?.hospital?.id,
+      },
+    };
+    window.electron.sendTCPMessage(payload);
+    window.electron.onTCPMessage((response) => {
+      if (response.type !== "create_appointment") return;
+      if (response.status === "success") {
+        toast.success("Appointment Succesufully Created");
+        formRef.current.reset();
+      } else {
+        toast.error(`Failed to create appointment :): ${response.message}`);
+      }
+
+      setLoading(false);
+    });
+  };
+
   return (
     <section className="flex flex-col gap-10">
       <div className="flex justify-between items-center">
@@ -76,7 +83,11 @@ const Appointments = () => {
             </Button>
           </DialogTrigger>
           <DialogContent>
-            <div className="flex flex-col ">
+            <form
+              className="flex flex-col "
+              onSubmit={handleSubmit}
+              ref={formRef}
+            >
               <DialogHeader className={`text-black`}>
                 <DialogTitle>Schedule appointment</DialogTitle>
               </DialogHeader>
@@ -87,6 +98,7 @@ const Appointments = () => {
                   label="Full name"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="text"
                   required={true}
                   borderColor="border-[#B9B9B9]"
@@ -97,6 +109,7 @@ const Appointments = () => {
                   label="Passport ID"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="text"
                   required={true}
                   borderColor="border-[#B9B9B9]"
@@ -107,6 +120,7 @@ const Appointments = () => {
                   label="Date of appointment"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="date"
                   required={true}
                   borderColor="border-[#B9B9B9]"
@@ -117,13 +131,17 @@ const Appointments = () => {
                   label="Time of appointment"
                   bgColor="bg-white"
                   textColor="text-black"
-                  type="text"
+                  labelColor={"text-black"}
+                  type="time"
                   required={true}
                   borderColor="border-[#B9B9B9]"
                 />
               </div>
               <div className="flex flex-col gap-3">
-                <SubmitButton />
+                <SubmitButton
+                  text={loading ? "Submitting..." : "Submit"}
+                  disabled={loading}
+                />
                 <DialogFooter className="sm:justify-start">
                   <DialogClose asChild>
                     <Button className="bg-transparent text-black hover:bg-gray-100 border border-black text-[17px] w-full">
@@ -132,14 +150,14 @@ const Appointments = () => {
                   </DialogClose>
                 </DialogFooter>
               </div>
-            </div>
+            </form>
           </DialogContent>
         </Dialog>
       </div>
       <div className="flex flex-col gap-7">
         <TableData
           columns={columnData}
-          rows={rowData}
+          rows={appointmentHistory}
           filterColumnKey="status"
           hasFilter={true}
         />
