@@ -5,7 +5,7 @@ import useGetUserHistory from "../../hooks/useGetUserHistory";
 import { Button } from "../ui/button";
 
 const columnData = [
-  { label: "Date", key: "donation_date" },
+  { label: "Date", key: "created_at" },
   { label: "Status", key: "status" },
   { label: "Hospital Name", key: `hospital[name]` },
   { label: "Quantity", key: "quantity" },

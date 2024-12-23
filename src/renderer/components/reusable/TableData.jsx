@@ -69,7 +69,7 @@ const TableData = ({
     }
 
     if (key === "donor[passport_number]") {
-      return obj["donor[passport_number]"]; // Explicitly mapped in hook
+      return obj["donor[passport_number]"];
     }
     if (key === "donorName") {
       return obj.donorName;
@@ -166,7 +166,12 @@ const TableData = ({
                       }`}
                     ></span>
                   )}
-                  {column.key.includes("date" || "created_at" || "updated_at")
+                  {[
+                    "created_at",
+                    "updated_at",
+                    "date",
+                    "appointment_date",
+                  ].includes(column.key)
                     ? formatDate(getNestedValue(row, column.key))
                     : getNestedValue(row, column.key) !== undefined
                     ? getNestedValue(row, column.key)
