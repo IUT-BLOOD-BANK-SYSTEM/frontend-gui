@@ -2,14 +2,15 @@ import React from "react";
 import TableData from "../reusable/TableData";
 import useGetUserHistory from "../../hooks/useGetUserHistory";
 import useGetDoctorHistory from "../../hooks/useGetDoctorHistory";
+import useGetHeadNurseHistory from "../../hooks/useGetHeadNurseHistory";
 
 const columnData = [
-  { label: "Date", key: "date" },
-  { label: "Doctor's hospital", key: "doctorHospital" },
-  { label: "Blood type", key: "bloodType" },
-  { label: "Amount", key: "amount" },
+  { label: "Date", key: "created_at" },
+  { label: "Doctor's hospital", key: "doctor[hospital]" },
+  { label: "Blood type", key: "blood_type[bloods_type]" },
+  { label: "Amount", key: "quantity" },
   { label: "Doctor Name", key: "doctorName" },
-  { label: "Patient's ID", key: "patientId" },
+  { label: "Patient's ID", key: "user_passport_number" },
 ];
 
 const columnData2 = [
@@ -21,8 +22,9 @@ const columnData2 = [
 ];
 
 const HeadNurseHistory = () => {
-  const {donationHistory} = useGetUserHistory()
-  const {requestHistory} = useGetDoctorHistory()
+  const { donationHistory } = useGetUserHistory();
+  const { requestHistory } = useGetHeadNurseHistory();
+
   return (
     <>
       <div className="space-y-6">
