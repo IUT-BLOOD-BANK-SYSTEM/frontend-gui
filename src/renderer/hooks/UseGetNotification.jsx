@@ -16,8 +16,6 @@ export default function UseGetNotification() {
           const filteredRequests = response.payload.notification.filter(
             (req) => req?.recipient_id == user_id
           );
-
-          // Format the created_at timestamp to "HH:mm" format
           const formattedNotifications = filteredRequests.map((notification) => {
             const date = new Date(notification.created_at);
             const time = date.toLocaleTimeString([], {

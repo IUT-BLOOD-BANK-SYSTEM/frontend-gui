@@ -20,10 +20,10 @@ const DoctorNotification = () => {
             <div className="flex items-center gap-9">
               <span
                 className={`w-2.5 h-2.5 rounded-full mr-3 ${
-                  notification.message.includes("available")
-                    ? "bg-green-500"
-                    : notification.message.includes("not available")
+                  notification.message.includes("not")
                     ? "bg-red-500"
+                    : notification.message.includes("available")
+                    ? "bg-green-500"
                     : "bg-gray-500" // fallback color in case neither is found
                 }`}
               ></span>
