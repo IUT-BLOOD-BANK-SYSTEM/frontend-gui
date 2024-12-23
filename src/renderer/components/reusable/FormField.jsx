@@ -13,7 +13,7 @@ const FormField = ({
   labelColor,
   handleChange,
   defaultValue = "",
-  inputmode
+  inputmode,
 }) => {
   return (
     <div className="w-full">
