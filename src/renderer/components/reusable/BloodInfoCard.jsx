@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import useGetBloodInventory from "../../hooks/useGetBloodInventory";
 
-const BloodInfoCard = ({ hospitalId, headNurseId }) => {
+const BloodInfoCard = ({ hospitalId, headNurseId, refetch=null }) => {
   const [bloodInventory, setBloodInventory] = useState([]);
-
   useEffect(() => {
     window.electron.sendTCPMessage({ type: "get_list_blood_inventory" });
 
@@ -22,7 +22,7 @@ const BloodInfoCard = ({ hospitalId, headNurseId }) => {
     return () => {
       window.electron.offTCPMessage(handleResponse);
     };
-  }, []);
+  }, [refetch]);
 
   const filteredBloodInventory = bloodInventory.filter((item) => {
     const matchesHospital = hospitalId ? item.hospital.id === hospitalId : true;

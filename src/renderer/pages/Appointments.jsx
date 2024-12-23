@@ -27,8 +27,10 @@ const columnData = [
 ];
 
 const Appointments = () => {
-  const { appointmentHistory } = useGetAppointmentHistory();
+  const [shouldRefetch, setShouldRefetch] = React.useState(false);
+  const { appointmentHistory } = useGetAppointmentHistory(shouldRefetch);
   const [loading, setLoading] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
   const formRef = React.useRef(null);
   const user = useGetUser("get_by_id_head_nurse");
 
@@ -60,6 +62,8 @@ const Appointments = () => {
       if (response.type !== "create_appointment") return;
       if (response.status === "success") {
         toast.success("Appointment Succesufully Created");
+        setShouldRefetch((prev)=>!prev)
+        setDialogOpen(false);
         formRef.current.reset();
       } else {
         toast.error(`Failed to create appointment :): ${response.message}`);
@@ -76,7 +80,7 @@ const Appointments = () => {
           Scheduled appointments for donation
         </h1>
 
-        <Dialog>
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger>
             <Button className="bg-success flex items-center  gap-x-2 text-base py-4 font-semibold hover:bg-emerald-600">
               <CirclePlus /> Schedule

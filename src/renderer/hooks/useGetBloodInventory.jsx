@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useGetBloodInventory() {
+export default function useGetBloodInventory(refetch=null) {
   const [bloodInventory, setBloodInventory] = useState([]);
 
   useEffect(() => {
