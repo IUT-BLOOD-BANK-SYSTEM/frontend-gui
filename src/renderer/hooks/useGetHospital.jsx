@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useGetHospital() {
+export default function useGetHospital(refetch = null) {
   const [hospitals, setHospitals] = useState([]);
   const [customHospitals, setCustomHospitals] = useState([]);
 
@@ -25,7 +25,7 @@ export default function useGetHospital() {
     return () => {
       window.electron.offTCPMessage(handleResponse);
     };
-  }, []);
+  }, [refetch]);
 
   return { hospitals, customHospitals };
 }

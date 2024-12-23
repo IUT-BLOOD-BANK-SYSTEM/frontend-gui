@@ -33,6 +33,7 @@ const FormField = ({
             textColor ? textColor : "text-white"
           } focus:outline-none`}
           required={required}
+          value={defaultValue}
         >
           {options?.map((option, index) => (
             <option key={index} value={option.value}>
@@ -43,6 +44,7 @@ const FormField = ({
       ) : (
         <input
           defaultValue={defaultValue}
+          onChange={handleChange}
           type={type}
           name={name}
           className={`w-full p-2 border ${
