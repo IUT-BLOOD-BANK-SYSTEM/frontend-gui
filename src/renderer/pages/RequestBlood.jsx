@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import useGetHospital from "../hooks/useGetHospital";
 import useGetBloods from "../hooks/useGetBloods";
 import { toast } from "sonner";
+import BloodInfoCard from "../components/reusable/BloodInfoCard";
 
 const RequestBlood = () => {
   const { customHospitals } = useGetHospital();
@@ -75,7 +76,7 @@ const RequestBlood = () => {
       <div className="w-[673px] mx-auto">
         <div>
           <h1 className="font-semibold text-xl mb-8">Blood available:</h1>
-          {/* <BloodInfoCard /> */}
+          <BloodInfoCard hospitalId={selectedHospital} />
         </div>
       </div>
       <div className="flex flex-col gap-6 items-center justify-center ">

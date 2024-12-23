@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import useGetBloodInventory from "../../hooks/useGetBloodInventory";
 
-const BloodInfoCard = () => {
+const BloodInfoCard = ({ hospitalId, headNurseId }) => {
   const [bloodInventory, setBloodInventory] = useState([]);
 
   useEffect(() => {
     window.electron.sendTCPMessage({ type: "get_list_blood_inventory" });
-    window.electron.onTCPMessage((response) => {
+
+    const handleResponse = (response) => {
       console.log(response);
       if (response.type === "get_list_blood_inventory") {
         if (response.status === "success") {
@@ -15,12 +15,27 @@ const BloodInfoCard = () => {
           console.error("Failed to fetch blood inventory:", response.message);
         }
       }
-    });
+    };
+
+    window.electron.onTCPMessage(handleResponse);
+
+    return () => {
+      window.electron.offTCPMessage(handleResponse);
+    };
   }, []);
+
+  const filteredBloodInventory = bloodInventory.filter((item) => {
+    const matchesHospital = hospitalId ? item.hospital.id === hospitalId : true;
+    const matchesHeadNurse = headNurseId
+      ? item.hospital.head_nurse.id === headNurseId
+      : true;
+
+    return matchesHospital && matchesHeadNurse;
+  });
 
   return (
     <div className="grid grid-cols-4 gap-5">
-      {bloodInventory.map((item, index) => (
+      {filteredBloodInventory.map((item, index) => (
         <div
           key={index}
           className="bg-[#fff] flex flex-col gap-4 justify-center px-5 h-36 items-center rounded-lg"

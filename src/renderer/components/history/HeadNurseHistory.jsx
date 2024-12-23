@@ -3,6 +3,7 @@ import TableData from "../reusable/TableData";
 import useGetUserHistory from "../../hooks/useGetUserHistory";
 import useGetDoctorHistory from "../../hooks/useGetDoctorHistory";
 import useGetHeadNurseHistory from "../../hooks/useGetHeadNurseHistory";
+import useGetAddedBloodsHistory from "../../hooks/useGetAddedBloodsHistory";
 
 const columnData = [
   { label: "Date", key: "created_at" },
@@ -15,15 +16,17 @@ const columnData = [
 ];
 
 const columnData2 = [
-  { label: "Date", key: "date" },
-  { label: "Blood type", key: "bloodType" },
-  { label: "Amount", key: "amount" },
-  { label: "Donor's Passport ID", key: "donorPassportId" },
-  { label: "Donor's name", key: "donorName" },
+  { label: "Date", key: "created_at" },
+  { label: "Blood type", key: "blood_type[bloods_type]" },
+  { label: "Amount", key: "quantity" },
+  { label: "Donor's Passport ID", key: "unregistered_passport_number" },
+  { label: "Donor's name", key: "unregistered_name" },
 ];
 
 const HeadNurseHistory = () => {
-  const { donationHistory } = useGetUserHistory();
+  const { addedBloodHistory } = useGetAddedBloodsHistory();
+  console.log(addedBloodHistory);
+
   const { requestHistory } = useGetHeadNurseHistory();
 
   return (
@@ -41,9 +44,9 @@ const HeadNurseHistory = () => {
         <h1 className="font-semibold text-xl">Added Bloods</h1>
         <TableData
           columns={columnData2}
-          rows={donationHistory}
+          rows={addedBloodHistory}
           hasFilter={true}
-          filterColumnKey="bloodType"
+          filterColumnKey="created_at"
         />
       </div>
     </>
