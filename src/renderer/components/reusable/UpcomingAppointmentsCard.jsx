@@ -1,31 +1,40 @@
 import React from "react";
-import { Dot } from "lucide-react";
+import { Circle } from "lucide-react";
 
 const UpcomingAppointmentsCard = ({ data }) => {
-  const { date, time, status, month, patient } = data;
-  return (
-    <div className="bg-[#fff] flex gap-10 justify-start px-10 h-36 items-center rounded-lg">
-      <div className="flex flex-col justify-center items-center text-[#D21F3C]">
-        <h1 className="font-bold text-[#D21F3C] text-5xl">{date}</h1>
-        <p className="font-semibold text-lg text-[#D21F3C]">{month}</p>
-      </div>
-      <div className="flex flex-col gap-2">
-        {patient !== undefined ? (
-          <div className="flex gap-3 font-semibold text-lg">
-            <p className="text-gray-500">Patient:</p>
-            <p className="text-[#000] flex items-center">{patient}</p>
-          </div>
-        ) : null}
-        <div className="flex font-semibold items-center text-lg">
-          <p className="text-gray-500">Status:</p>
-          <p className="text-[#000] flex items-center">
-            <Dot color="#2B9355" size={35} /> {status}
-          </p>
-        </div>
+  const { appointment_date, status } = data;
+  const appointmentDate = new Date(appointment_date);
+  const currentDate = new Date();
 
-        <div className="flex gap-6 font-semibold text-lg">
-          <p className="text-gray-500">Time:</p>
-          <p className="text-[#000]">{time}</p>
+  // Skip rendering if the appointment date is in the past
+  if (appointmentDate < currentDate) {
+    return null;
+  }
+
+  const month = appointmentDate.toLocaleString("default", { month: "long" });
+  const day = appointmentDate.getDate();
+
+  // Extract time in UTC (HH:mm format)
+  const time = appointmentDate.toISOString().slice(11, 16);
+
+  return (
+    <div className="bg-white shadow-sm rounded-xl p-4 flex items-center gap-6">
+      {/* Date Section */}
+      <div className="flex flex-col justify-center items-center">
+        <span className="text-red-600 text-sm font-medium">{month}</span>
+        <span className="text-red-600 text-3xl font-bold leading-none">{day}</span>
+      </div>
+
+      {/* Status and Time Section */}
+      <div className="space-y-1">
+        <div className="text-black flex items-center gap-1.5">
+          <Circle className="h-2 w-2 fill-emerald-500 text-emerald-500" />
+          <span className="text-sm">
+            Status: <span className="text-black font-medium">{status}</span>
+          </span>
+        </div>
+        <div className="text-black text-sm">
+          Time: <span className="font-medium">{time}</span>
         </div>
       </div>
     </div>

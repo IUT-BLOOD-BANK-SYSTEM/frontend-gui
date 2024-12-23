@@ -4,7 +4,6 @@ import { Button } from "../components/ui/button";
 import BloodInfoCard from "../components/reusable/BloodInfoCard";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -19,10 +18,12 @@ import { toast } from "sonner";
 const BloodBank = () => {
   const addFormRef = useRef(null);
   const removeFormRef = useRef(null);
-  const addDialogCloseRef = useRef(null);
-  const removeDialogCloseRef = useRef(null);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [removeDialogOpen, setRemoveDialogOpen] = React.useState(false);
   const { bloods } = useGetBloods();
   const { user_id } = JSON.parse(localStorage.getItem("user"));
+
+  const [shouldRefetch, setShouldRefetch] = React.useState(false);
 
   const handleAddBlood = async (e) => {
     e.preventDefault();
@@ -45,7 +46,9 @@ const BloodBank = () => {
       if (response.type === "add_blood_donation") {
         if (response.status === "success") {
           toast.success("Blood added successfully!");
-          addDialogCloseRef.current.click(); // Close the dialog
+          setShouldRefetch((prev) => !prev);
+          setDialogOpen(false); // Close the dialog
+
         } else {
           toast.error(`Error: ${response.message}`);
         }
@@ -73,7 +76,8 @@ const BloodBank = () => {
       if (response.type === "remove_blood_inventory") {
         if (response.status === "success") {
           toast.success("Blood removed successfully!");
-          removeDialogCloseRef.current.click(); // Close the dialog
+          setShouldRefetch((prev) => !prev);
+          setRemoveDialogOpen(false); // Close the dialog
         } else {
           toast.error(`Error: ${response.message}`);
         }
@@ -85,11 +89,15 @@ const BloodBank = () => {
   return (
     <section className="flex flex-col gap-6">
       <h1 className="font-semibold text-xl">Blood Bank:</h1>
-      <BloodInfoCard headNurseId={user_id} />
+      <BloodInfoCard headNurseId={user_id} refetch={shouldRefetch} />
       <div className="flex items-center justify-end gap-5">
-        <Dialog>
-          <DialogTrigger>
-            <Button className="bg-success flex items-center w-[149px] h-[46px] gap-x-2 text-lg font-semibold hover:bg-emerald-600">
+        {/* Add Blood Dialog */}
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <DialogTrigger asChild>
+            <Button
+              onClick={() => setDialogOpen(true)}
+              className="bg-success flex items-center w-[149px] h-[46px] gap-x-2 text-lg font-semibold hover:bg-emerald-600"
+            >
               <CirclePlus /> Add
             </Button>
           </DialogTrigger>
@@ -145,23 +153,25 @@ const BloodBank = () => {
               <div className="flex flex-col gap-3">
                 <SubmitButton text="Add to blood bank" />
                 <DialogFooter>
-                  <DialogClose asChild>
-                    <Button
-                      ref={addDialogCloseRef}
-                      className="bg-transparent text-black hover:bg-gray-100 border border-black text-[17px] w-full"
-                    >
-                      Cancel
-                    </Button>
-                  </DialogClose>
+                  <Button
+                    onClick={() => setDialogOpen(false)}
+                    className="bg-transparent text-black hover:bg-gray-100 border border-black text-[17px] w-full"
+                  >
+                    Cancel
+                  </Button>
                 </DialogFooter>
               </div>
             </form>
           </DialogContent>
         </Dialog>
 
-        <Dialog>
-          <DialogTrigger>
-            <Button className="bg-secondary flex items-center w-[149px] h-[46px] gap-x-2 text-lg font-semibold hover:bg-red-700">
+        {/* Remove Blood Dialog */}
+        <Dialog open={removeDialogOpen} onOpenChange={setRemoveDialogOpen}>
+          <DialogTrigger asChild>
+            <Button
+              onClick={() => setRemoveDialogOpen(true)}
+              className="bg-secondary flex items-center w-[149px] h-[46px] gap-x-2 text-lg font-semibold hover:bg-red-700"
+            >
               <Trash /> Remove
             </Button>
           </DialogTrigger>
@@ -195,14 +205,12 @@ const BloodBank = () => {
               </div>
               <SubmitButton text="Remove from blood bank" />
               <DialogFooter>
-                <DialogClose asChild>
-                  <Button
-                    ref={removeDialogCloseRef}
-                    className="bg-transparent text-black hover:bg-gray-100 border border-black text-[17px] w-full"
-                  >
-                    Cancel
-                  </Button>
-                </DialogClose>
+                <Button
+                  onClick={() => setRemoveDialogOpen(false)}
+                  className="bg-transparent text-black hover:bg-gray-100 border border-black text-[17px] w-full"
+                >
+                  Cancel
+                </Button>
               </DialogFooter>
             </form>
           </DialogContent>

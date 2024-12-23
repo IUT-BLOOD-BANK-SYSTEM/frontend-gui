@@ -62,9 +62,9 @@ const Appointments = () => {
       if (response.type !== "create_appointment") return;
       if (response.status === "success") {
         toast.success("Appointment Succesufully Created");
-        setShouldRefetch((prev) => !prev);
         setDialogOpen(false);
         formRef.current.reset();
+         setShouldRefetch((prev) => !prev);
       } else {
         toast.error(`Failed to create appointment :): ${response.message}`);
       }
