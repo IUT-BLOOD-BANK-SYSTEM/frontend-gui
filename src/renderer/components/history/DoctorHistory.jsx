@@ -17,7 +17,7 @@ const DoctorHistory = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="text-xl font-bold mb-4">Recent notifications</h2>
+      <h2 className="text-xl font-bold mb-4">Request History</h2>
       <TableData
         columns={columnData}
         rows={requestHistory}
