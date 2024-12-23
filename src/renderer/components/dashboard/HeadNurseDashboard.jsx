@@ -38,6 +38,7 @@ const HeadNurseDashboard = () => {
           rows={requestHistory}
           hasFilter={true}
           filterColumnKey="status"
+          maxRows={5}
         />
         <Link to="/dashboard/history">
           <SeeMoreButton />

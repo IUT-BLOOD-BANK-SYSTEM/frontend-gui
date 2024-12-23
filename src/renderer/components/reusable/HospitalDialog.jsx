@@ -26,6 +26,7 @@ const HospitalDialog = ({
   isOpen,
 }) => {
   const regions = useGetRegions();
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogTrigger>
@@ -108,7 +109,6 @@ const HospitalDialog = ({
               bgColor="bg-white"
               textColor="text-black"
               type="text"
-              required
               borderColor="border-[#B9B9B9]"
               labelColor={"text-black"}
               defaultValue={formData?.head_nurse_id}

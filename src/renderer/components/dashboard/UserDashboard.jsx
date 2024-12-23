@@ -58,14 +58,14 @@ const UserDashboard = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood donation history</h1>
-        <TableData columns={columnData1} rows={donationHistory} />
+        <TableData columns={columnData1} rows={donationHistory} maxRows={5} />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood acception history</h1>
-        <TableData columns={columnData2} rows={acceptanceHistory} />
+        <TableData columns={columnData2} rows={acceptanceHistory} maxRows={5} />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>
