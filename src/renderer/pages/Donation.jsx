@@ -3,35 +3,14 @@ import UpcomingAppointmentsCard from "../components/reusable/UpcomingAppointment
 import SubmitButton from "../components/reusable/SubmitButton";
 import FormField from "../components/reusable/FormField";
 import useGetHospital from "../hooks/useGetHospital";
+import useGetUpcomingAppointments from "../hooks/useGetUpcomingAppointments";
 import { toast } from "sonner";
-const appointmentsData = [
-  {
-    id: 1,
-    date: 28,
-    time: "15:00",
-    status: "Approved",
-    month: "October",
-  },
-  {
-    id: 2,
-    date: 28,
-    time: "15:00",
-    status: "Approved",
-    month: "October",
-  },
-  {
-    id: 3,
-    date: 28,
-    time: "15:00",
-    status: "Approved",
-    month: "October",
-  },
-];
 
 const Donation = () => {
   const [loading, setLoading] = React.useState(false);
   const formRef = React.useRef(null);
   const { customHospitals } = useGetHospital();
+  const { appointments, fetchAppointments } = useGetUpcomingAppointments();
   const { user_id } = JSON.parse(localStorage.getItem("user"));
 
   const handleSubmit = (e) => {
@@ -56,17 +35,18 @@ const Donation = () => {
         hospital_id: data.hospital,
       },
     };
+
     window.electron.sendTCPMessage(payload);
     window.electron.onTCPMessage((response) => {
       if (response.type !== "create_appointment") return;
-      if (response.status === "success") {
-        toast.success("Appointment Succesufully Created");
-        0;
-        formRef.current.reset();
-      } else {
-        toast.error(`Failed to create appointment :): ${response.message}`);
-      }
 
+      if (response.status === "success") {
+        toast.success("Appointment Successfully Created");
+        formRef.current.reset();
+        fetchAppointments(); // Refresh appointments
+      } else {
+        toast.error(`Failed to create appointment: ${response.message}`);
+      }
       setLoading(false);
     });
   };
@@ -75,10 +55,14 @@ const Donation = () => {
     <section className="flex flex-col gap-16">
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Upcoming appointments</h1>
-        <div className="grid grid-cols-2 gap-5">
-          {appointmentsData.map((data) => (
-            <UpcomingAppointmentsCard key={data.id} data={data} />
-          ))}
+        <div className="grid grid-cols-3 gap-5">
+          {appointments.length > 0 ? (
+            appointments.map((data) => (
+              <UpcomingAppointmentsCard key={data.id} data={data} />
+            ))
+          ) : (
+            <p>No upcoming appointments.</p>
+          )}
         </div>
       </div>
 
@@ -88,10 +72,7 @@ const Donation = () => {
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-5 w-3/4">
             <div className="flex flex-col gap-2">
-              <label
-                htmlFor="dateofappointment"
-                className="text-sm font-medium"
-              >
+              <label htmlFor="dateofappointment" className="text-sm font-medium">
                 Date of Appointment*
               </label>
               <FormField
@@ -104,10 +85,7 @@ const Donation = () => {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label
-                htmlFor="timeofappointment"
-                className="text-sm font-medium"
-              >
+              <label htmlFor="timeofappointment" className="text-sm font-medium">
                 Time of Appointment*
               </label>
               <FormField
@@ -128,10 +106,7 @@ const Donation = () => {
               options={customHospitals}
               required
             />
-            <SubmitButton
-              text={loading ? "Submitting..." : "Submit"}
-              disabled={loading}
-            />
+            <SubmitButton text={loading ? "Submitting..." : "Submit"} disabled={loading} />
           </div>
         </form>
       </div>
