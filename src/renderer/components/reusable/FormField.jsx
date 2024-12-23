@@ -13,7 +13,7 @@ const FormField = ({
   labelColor,
   handleChange,
   defaultValue = "",
-  inputmode
+  inputmode,
 }) => {
   return (
     <div className="w-full">
@@ -34,7 +34,7 @@ const FormField = ({
             textColor ? textColor : "text-white"
           } focus:outline-none`}
           required={required}
-          value={defaultValue}
+          defaultValue={defaultValue}
         >
           {options?.map((option, index) => (
             <option key={index} value={option.value}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useGetUser from "./useGetUser";
 
-const useGetAppointmentHistory = () => {
+const useGetAppointmentHistory = (refetch = null) => {
   const [appointmentHistory, setAppointmentHistory] = useState([]);
   const user = useGetUser("get_by_id_head_nurse");
 
@@ -54,7 +54,7 @@ const useGetAppointmentHistory = () => {
     return () => {
       window.electron.offTCPMessage(handleAppointmentResponse);
     };
-  }, [user]);
+  }, [user, refetch]);
 
   return { appointmentHistory };
 };
