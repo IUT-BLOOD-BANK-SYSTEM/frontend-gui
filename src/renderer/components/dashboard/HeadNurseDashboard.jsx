@@ -4,52 +4,21 @@ import BloodInfoCard from "../reusable/BloodInfoCard";
 import TableData from "../reusable/TableData";
 import { Link } from "react-router-dom";
 import SeeMoreButton from "../reusable/SeeMoreButton";
+import useGetHeadNurseHistory from "../../hooks/useGetHeadNurseHistory";
 
 const columnData = [
-  { label: "Date", key: "date" },
-  { label: "Blood type", key: "bloodType" },
-  { label: "Amount", key: "amount" },
+  { label: "Date", key: "created_at" },
+  { label: "Doctor's hospital", key: "doctor[hospital][name]" },
+  { label: "Blood type", key: "blood_type[bloods_type]" },
+  { label: "Amount", key: "quantity" },
   { label: "Doctor Name", key: "doctorName" },
-];
-const rowData = [
-  {
-    id: 1,
-    date: "10.28.2024",
-    bloodType: "A+",
-    amount: "450ml",
-    doctorName: "Dr. Dre",
-  },
-  {
-    id: 2,
-    date: "10.28.2024",
-    bloodType: "A+",
-    amount: "450ml",
-    doctorName: "Dr. Dre",
-  },
-  {
-    id: 3,
-    date: "10.28.2024",
-    bloodType: "A+",
-    amount: "450ml",
-    doctorName: "Dr. Dre",
-  },
-  {
-    id: 4,
-    date: "10.28.2024",
-    bloodType: "A+",
-    amount: "450ml",
-    doctorName: "Dr. Dre",
-  },
-  {
-    id: 5,
-    date: "10.28.2024",
-    bloodType: "A+",
-    amount: "450ml",
-    doctorName: "Dr. Dre",
-  },
+  { label: "Patient's ID", key: "user_passport_number" },
+  { label: "Status", key: "status" },
 ];
 
 const HeadNurseDashboard = () => {
+  const { requestHistory } = useGetHeadNurseHistory();
+
   return (
     <section className="flex flex-col gap-16">
       <img
@@ -60,19 +29,16 @@ const HeadNurseDashboard = () => {
 
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood available</h1>
-        <div className="grid grid-cols-4 gap-5">
-          {bloodTypes.map((data, index) => (
-            <BloodInfoCard
-              bloodType={data.value}
-              bloodAmount={12.5}
-              key={index}
-            />
-          ))}
-        </div>
+        <BloodInfoCard />
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood request history</h1>
-        <TableData columns={columnData} rows={rowData} />
+        <TableData
+          columns={columnData}
+          rows={requestHistory}
+          hasFilter={true}
+          filterColumnKey="status"
+        />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>

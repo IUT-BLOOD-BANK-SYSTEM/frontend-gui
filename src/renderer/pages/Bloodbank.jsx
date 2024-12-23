@@ -31,14 +31,7 @@ const BloodBank = () => {
   return (
     <section className="flex flex-col gap-6">
       <h1 className="font-semibold text-xl">Blood Bank:</h1>
-      <div className="grid grid-cols-4 gap-5">
-        {bloodData.map((item) => (
-          <BloodInfoCard
-            bloodType={item.bloodType}
-            bloodAmount={item.bloodAmount}
-          />
-        ))}
-      </div>
+      <BloodInfoCard />
       <div className="flex items-center justify-end gap-5">
         <Dialog>
           <DialogTrigger>
@@ -58,6 +51,7 @@ const BloodBank = () => {
                   label="Blood type"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="select"
                   options={bloodTypes}
                   required={true}
@@ -69,6 +63,7 @@ const BloodBank = () => {
                   label="Amount"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="text"
                   required={true}
                   borderColor="border-[#B9B9B9]"
@@ -79,6 +74,7 @@ const BloodBank = () => {
                   label="Donor's name"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="text"
                   required={true}
                   borderColor="border-[#B9B9B9]"
@@ -89,6 +85,7 @@ const BloodBank = () => {
                   label="Passport ID"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="text"
                   required={true}
                   borderColor="border-[#B9B9B9]"
@@ -126,6 +123,7 @@ const BloodBank = () => {
                   label="Blood type"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="select"
                   options={bloodTypes}
                   required={true}
@@ -137,6 +135,7 @@ const BloodBank = () => {
                   label="Amount"
                   bgColor="bg-white"
                   textColor="text-black"
+                  labelColor={"text-black"}
                   type="text"
                   required={true}
                   borderColor="border-[#B9B9B9]"
