@@ -22,7 +22,7 @@ const useGetAddedBloodsHistory = () => {
         }
       }
     });
-  }, []);
+  }, [user]);
 
   return { addedBloodHistory };
 };

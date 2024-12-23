@@ -19,8 +19,8 @@ const columnData2 = [
   { label: "Date", key: "created_at" },
   { label: "Blood type", key: "blood_type[bloods_type]" },
   { label: "Amount", key: "quantity" },
-  { label: "Donor's Passport ID", key: "unregistered_passport_number" },
-  { label: "Donor's name", key: "unregistered_name" },
+  { label: "Donor's Passport ID", key: "donor[passport_number]" },
+  { label: "Donor's name", key: "donorName" },
 ];
 
 const HeadNurseHistory = () => {

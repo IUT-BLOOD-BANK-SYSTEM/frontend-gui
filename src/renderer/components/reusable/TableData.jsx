@@ -56,6 +56,18 @@ const TableData = ({
   }, [rows, filterValue, searchTerm, filterColumnKey]);
 
   const getNestedValue = (obj, key) => {
+    if (key === "donorName") {
+      return obj.donor?.id
+        ? `${obj.donor.first_name} ${obj.donor.second_name}`.trim()
+        : obj.unregistered_name || "Unknown Donor";
+    }
+
+    if (key === "donor[passport_number]") {
+      return (
+        obj.donor?.passport_number || obj.unregistered_passport_number || "N/A"
+      );
+    }
+
     if (key === "donor[passport_number]") {
       return obj["donor[passport_number]"]; // Explicitly mapped in hook
     }
