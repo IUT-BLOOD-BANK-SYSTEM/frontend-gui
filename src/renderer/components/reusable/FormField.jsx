@@ -13,6 +13,7 @@ const FormField = ({
   labelColor,
   handleChange,
   defaultValue = "",
+  inputmode
 }) => {
   return (
     <div className="w-full">
@@ -56,6 +57,7 @@ const FormField = ({
           }  focus:outline-none focus:ring focus:ring-[#e0e0e0]`}
           placeholder={placeholder}
           required={required}
+          inputMode={inputmode}
         />
       )}
     </div>

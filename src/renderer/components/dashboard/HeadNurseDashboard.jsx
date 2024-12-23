@@ -1,4 +1,3 @@
-import { bloodTypes } from "../../lib/utils";
 import banner from "../../assets/banner.svg";
 import BloodInfoCard from "../reusable/BloodInfoCard";
 import TableData from "../reusable/TableData";
@@ -18,6 +17,7 @@ const columnData = [
 
 const HeadNurseDashboard = () => {
   const { requestHistory } = useGetHeadNurseHistory();
+  const { user_id } = JSON.parse(localStorage.getItem("user"));
 
   return (
     <section className="flex flex-col gap-16">
@@ -29,7 +29,7 @@ const HeadNurseDashboard = () => {
 
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood available</h1>
-        <BloodInfoCard />
+        <BloodInfoCard headNurseId={user_id} />
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood request history</h1>
