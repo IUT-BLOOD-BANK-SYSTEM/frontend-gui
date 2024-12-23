@@ -1,4 +1,3 @@
-import { bloodTypes } from "../../lib/utils";
 import banner from "../../assets/banner.svg";
 import BloodInfoCard from "../reusable/BloodInfoCard";
 import TableData from "../reusable/TableData";
@@ -8,15 +7,17 @@ import useGetHeadNurseHistory from "../../hooks/useGetHeadNurseHistory";
 
 const columnData = [
   { label: "Date", key: "created_at" },
-  { label: "Doctor's hospital", key: "doctor[hospital]" },
+  { label: "Doctor's hospital", key: "doctor[hospital][name]" },
   { label: "Blood type", key: "blood_type[bloods_type]" },
   { label: "Amount", key: "quantity" },
   { label: "Doctor Name", key: "doctorName" },
   { label: "Patient's ID", key: "user_passport_number" },
+  { label: "Status", key: "status" },
 ];
 
 const HeadNurseDashboard = () => {
   const { requestHistory } = useGetHeadNurseHistory();
+  const { user_id } = JSON.parse(localStorage.getItem("user"));
 
   return (
     <section className="flex flex-col gap-16">
@@ -28,7 +29,7 @@ const HeadNurseDashboard = () => {
 
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood available</h1>
-        <BloodInfoCard />
+        <BloodInfoCard headNurseId={user_id} />
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood request history</h1>
@@ -36,7 +37,7 @@ const HeadNurseDashboard = () => {
           columns={columnData}
           rows={requestHistory}
           hasFilter={true}
-          filterColumnKey="bloodType"
+          filterColumnKey="status"
         />
         <Link to="/dashboard/history">
           <SeeMoreButton />
