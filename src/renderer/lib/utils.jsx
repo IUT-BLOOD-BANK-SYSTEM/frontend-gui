@@ -6,14 +6,14 @@ export function cn(...inputs) {
 }
 
 export const bloodTypes = [
-  { label: "O-", value: "O-" },
-  { label: "O+", value: "O+" },
-  { label: "A+", value: "A+" },
-  { label: "A-", value: "A-" },
-  { label: "B+", value: "B+" },
-  { label: "B-", value: "B-" },
-  { label: "AB+", value: "AB+" },
-  { label: "AB-", value: "AB-" },
+  { value: "7044dae4-b87c-4af5-b850-b9fc1e8b5d71", label: "A+" },
+  { value: "ef785e0e-32d0-4cb2-be90-34d092d7102e", label: "A-" },
+  { value: "b65b5031-b15f-49c9-bdf7-285363410fef", label: "B+" },
+  { value: "46d75fea-5e67-46b9-bd5d-db252eabbd53", label: "B-" },
+  { value: "deb13e7e-4a0c-4027-852d-5f1de751c846", label: "O+" },
+  { value: "c0894f99-4112-407f-b9b2-b3231c2287f4", label: "O-" },
+  { value: "c2122d42-4a17-425d-94b6-36ce3955a674", label: "AB+" },
+  { value: "14fe9fa8-63c3-4b79-8177-ccf87f4af451", label: "AB-" },
 ];
 
 export const hospitals = [

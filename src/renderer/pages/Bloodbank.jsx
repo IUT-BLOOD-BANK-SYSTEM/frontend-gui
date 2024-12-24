@@ -12,15 +12,14 @@ import {
 } from "../components/ui/dialog";
 import FormField from "../components/reusable/FormField";
 import SubmitButton from "../components/reusable/SubmitButton";
-import useGetBloods from "../hooks/useGetBloods";
 import { toast } from "sonner";
+import { bloodTypes } from "../lib/utils";
 
 const BloodBank = () => {
   const addFormRef = useRef(null);
   const removeFormRef = useRef(null);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [removeDialogOpen, setRemoveDialogOpen] = React.useState(false);
-  const { bloods } = useGetBloods();
   const { user_id } = JSON.parse(localStorage.getItem("user"));
 
   const [shouldRefetch, setShouldRefetch] = React.useState(false);
@@ -48,7 +47,6 @@ const BloodBank = () => {
           toast.success("Blood added successfully!");
           setShouldRefetch((prev) => !prev);
           setDialogOpen(false); // Close the dialog
-
         } else {
           toast.error(`Error: ${response.message}`);
         }
@@ -102,7 +100,11 @@ const BloodBank = () => {
             </Button>
           </DialogTrigger>
           <DialogContent>
-            <form ref={addFormRef} className="flex flex-col" onSubmit={handleAddBlood}>
+            <form
+              ref={addFormRef}
+              className="flex flex-col"
+              onSubmit={handleAddBlood}
+            >
               <DialogHeader className="text-black">
                 <DialogTitle>Add blood</DialogTitle>
               </DialogHeader>
@@ -114,7 +116,7 @@ const BloodBank = () => {
                   textColor="text-black"
                   labelColor="text-black"
                   type="select"
-                  options={bloods}
+                  options={bloodTypes}
                   required
                   borderColor="border-[#B9B9B9]"
                 />
@@ -176,7 +178,11 @@ const BloodBank = () => {
             </Button>
           </DialogTrigger>
           <DialogContent>
-            <form ref={removeFormRef} className="flex flex-col gap-3" onSubmit={handleRemoveBlood}>
+            <form
+              ref={removeFormRef}
+              className="flex flex-col gap-3"
+              onSubmit={handleRemoveBlood}
+            >
               <DialogHeader className="text-black">
                 <DialogTitle>Remove blood</DialogTitle>
               </DialogHeader>

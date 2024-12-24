@@ -2,15 +2,14 @@ import SubmitButton from "../components/reusable/SubmitButton";
 import FormField from "../components/reusable/FormField";
 import { useRef, useState, useEffect } from "react";
 import useGetHospital from "../hooks/useGetHospital";
-import useGetBloods from "../hooks/useGetBloods";
 import { toast } from "sonner";
 import BloodInfoCard from "../components/reusable/BloodInfoCard";
+import { bloodTypes } from "../lib/utils";
 
 const RequestBlood = () => {
   const { customHospitals } = useGetHospital();
   console.log(customHospitals);
 
-  const { bloods } = useGetBloods();
   const formRef = useRef(null);
   const [selectedHospital, setSelectedHospital] = useState(null);
 
@@ -76,7 +75,7 @@ const RequestBlood = () => {
       <div className="w-[673px] mx-auto">
         <div>
           <h1 className="font-semibold text-xl mb-8">Blood available:</h1>
-          {/* <BloodInfoCard hospitalId={selectedHospital} /> */}
+          <BloodInfoCard hospitalId={selectedHospital} />
         </div>
       </div>
       <div className="flex flex-col gap-6 items-center justify-center ">
@@ -97,7 +96,7 @@ const RequestBlood = () => {
                 textColor={"text-black"}
                 labelColor={"text-white"}
                 type="select"
-                options={bloods}
+                options={bloodTypes}
               />
             </div>
             <div className="flex flex-col gap-2 w-1/2">

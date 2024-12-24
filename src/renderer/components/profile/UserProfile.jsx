@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import SubmitButton from "../reusable/SubmitButton";
 import useGetUser from "../../hooks/useGetUser";
-import useGetBloods from "../../hooks/useGetBloods";
+import { bloodTypes } from "../../lib/utils";
 import FormField from "../reusable/FormField";
 import { toast } from "sonner";
 
 const UserProfile = () => {
   const user = useGetUser("get_by_id_user");
-  const { bloods } = useGetBloods();
   const [formData, setFormData] = useState({
     firstName: "",
     secondName: "",
@@ -202,7 +201,7 @@ const UserProfile = () => {
               textColor={"text-black"}
               labelColor={"text-white"}
               type="select"
-              options={bloods}
+              options={bloodTypes}
               defaultValue={formData.blood_type_id}
               handleChange={handleChange}
             />
