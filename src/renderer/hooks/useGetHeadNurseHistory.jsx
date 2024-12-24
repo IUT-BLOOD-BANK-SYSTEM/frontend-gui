@@ -11,7 +11,9 @@ const useGetHeadNurseHistory = () => {
     const handleBloodRequestResponse = (response) => {
       if (response.type === "blood_request_history") {
         if (response.status === "success") {
-          const filteredRequests = response.payload.blood_requests.filter(
+          const allHistory = response.payload.blood_requests || [];
+
+          const filteredRequests = allHistory.filter(
             (req) => req.hospital.id === user?.hospital?.id
           );
           setRequestHistory(filteredRequests);

@@ -7,7 +7,8 @@ export default function useGetRegions() {
     const handleResponse = (response) => {
       if (response.type === "get_list_region") {
         if (response.status === "success") {
-          const regions = response.payload.regions.map((region) => ({
+          const allRegions = response.payload.regions || [];
+          const regions = allRegions.map((region) => ({
             value: region.id,
             label: region.name,
           }));

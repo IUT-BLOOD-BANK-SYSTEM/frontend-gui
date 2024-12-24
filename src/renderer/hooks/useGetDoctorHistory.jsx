@@ -9,13 +9,11 @@ const useGetDoctorHistory = () => {
   useEffect(() => {
     window.electron.sendTCPMessage({ type: "blood_request_history" });
     window.electron.onTCPMessage((response) => {
-      console.log(response);
-
       if (response.type === "blood_request_history") {
         if (response.status === "success") {
-          console.log(response.payload.blood_requests);
+          const allNotifications = response.payload.blood_requests || [];
 
-          const filteredRequests = response.payload.blood_requests.filter(
+          const filteredRequests = allNotifications.filter(
             (req) => req.doctor.id === user_id
           );
 

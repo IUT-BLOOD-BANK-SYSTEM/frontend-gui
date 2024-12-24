@@ -49,7 +49,7 @@ const UserHistoryDonation = () => {
       {activePage === "donation" ? (
         <TableData
           columns={columnData}
-          rows={donationHistory}
+          rows={donationHistory || []}
           hasFilter={true}
           filterColumnKey="status"
         />

@@ -36,7 +36,9 @@ const useGetUserHistory = () => {
       console.log(response);
       if (response.type === "get_list_blood_acceptance") {
         if (response.status === "success") {
-          const filteredData = response.payload.blood_acceptances.filter(
+          const allHospital = response.payload.blood_acceptances || [];
+
+          const filteredData = allHospital.filter(
             (item) => item.patient.id === user_id
           );
 

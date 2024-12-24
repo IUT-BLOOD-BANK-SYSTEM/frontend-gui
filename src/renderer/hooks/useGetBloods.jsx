@@ -7,7 +7,9 @@ export default function useGetBloods() {
     const handleResponse = (response) => {
       if (response.type === "get_list_blood_type") {
         if (response.status === "success") {
-          const properData = response.payload.blood_types.map((blood) => ({
+          const allBlood = response.payload.blood_types || [];
+
+          const properData = allBlood.map((blood) => ({
             value: blood.id,
             label: blood.bloods_type,
           }));

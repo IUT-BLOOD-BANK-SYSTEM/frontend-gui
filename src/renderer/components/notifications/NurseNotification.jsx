@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
-import useGetNotification from "../../hooks/UseGetNotification";
+import useGetNotification from "../../hooks/useGetNotification";
 import { toast } from "sonner";
 
 export default function NurseNotification() {

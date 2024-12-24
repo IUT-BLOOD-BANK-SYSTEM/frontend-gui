@@ -8,7 +8,8 @@ export default function useGetHospital(refetch = null) {
     const handleResponse = (response) => {
       if (response.type === "get_list_hospital") {
         if (response.status === "success") {
-          const properData = response.payload.hospitals.map((hospital) => ({
+          const allHospital = response.payload.hospitals || [];
+          const properData = allHospital.map((hospital) => ({
             value: hospital.id,
             label: hospital.name,
           }));

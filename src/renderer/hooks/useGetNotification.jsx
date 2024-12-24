@@ -8,7 +8,9 @@ export default function useGetNotification() {
     const handleTCPResponse = (response) => {
       if (response.type === "get_list_notification") {
         if (response.status === "success") {
-          const filteredRequests = response.payload.notification.filter(
+          const allNotification = response.payload.notification || [];
+
+          const filteredRequests = allNotification.filter(
             (req) => req?.recipient_id == user_id
           );
 

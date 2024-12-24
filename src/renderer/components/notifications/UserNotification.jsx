@@ -1,8 +1,8 @@
 import React from "react";
-import UseGetNotification from "../../hooks/UseGetNotification";
+import useGetNotification from "../../hooks/useGetNotification";
 
 const UserNotification = () => {
-  const { Notification } = UseGetNotification();
+  const { Notification } = useGetNotification();
 
   if (!Notification || Notification.length === 0) {
     return <div>No notifications available.</div>;

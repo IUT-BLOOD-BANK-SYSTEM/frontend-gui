@@ -11,7 +11,8 @@ const useGetAppointmentHistory = (refetch = null) => {
     const handleAppointmentResponse = (response) => {
       if (response.type === "get_list_appointment") {
         if (response.status === "success") {
-          const filteredAppointments = response.payload.appointments
+          const allAppointments = response.payload.appointments || [];
+          const filteredAppointments = allAppointments
             .filter((req) => req.hospital.id === user?.hospital?.id)
             .map((appointment) => {
               const date = new Date(appointment.appointment_date);

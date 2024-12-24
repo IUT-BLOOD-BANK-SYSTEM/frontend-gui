@@ -12,7 +12,8 @@ const useGetAddedBloodsHistory = () => {
 
       if (response.type === "get_list_blood_donation") {
         if (response.status === "success") {
-          const filteredRequests = response.payload.blood_donations.filter(
+          const allDontations = response.payload.blood_donations || [];
+          const filteredRequests = allDontations.filter(
             (req) => req.hospital.id === user?.hospital?.id
           );
 

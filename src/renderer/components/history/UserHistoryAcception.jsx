@@ -14,7 +14,7 @@ const UserHistoryAcception = () => {
     <div className="flex flex-col gap-6">
       <TableData
         columns={columnData}
-        rows={acceptanceHistory}
+        rows={acceptanceHistory || []}
         hasFilter={true}
         filterColumnKey="status"
       />
