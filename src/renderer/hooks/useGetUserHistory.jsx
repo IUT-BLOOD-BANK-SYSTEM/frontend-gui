@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
 
 const useGetUserHistory = () => {
-  const [appointmentsData, setAppointmentsData] = useState([]);
   const [donationHistory, setDonationHistory] = useState([]);
   const [acceptanceHistory, setAcceptanceHistory] = useState([]);
+  // const [appointmentsData, setAppointmentsData] = useState([]);
+
+  const { user_id } = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    window.electron.sendTCPMessage({ type: "get_list_appointments" });
-    window.electron.onTCPMessage((response) => {
-      if (response.type === "get_list_appointments") {
-        if (response.status === "success") {
-          setAppointmentsData(response.payload);
-        } else {
-          console.error("Failed to fetch appointments:", response.message);
-        }
-      }
-    });
+    // window.electron.sendTCPMessage({ type: "get_list_appointments" });
+    // window.electron.onTCPMessage((response) => {
+    //   if (response.type === "get_list_appointments") {
+    //     if (response.status === "success") {
+    //       setAppointmentsData(response.payload);
+    //     } else {
+    //       console.error("Failed to fetch appointments:", response.message);
+    //     }
+    //   }
+    // });
 
     window.electron.sendTCPMessage({ type: "get_list_blood_donation" });
     window.electron.onTCPMessage((response) => {
@@ -34,7 +36,11 @@ const useGetUserHistory = () => {
       console.log(response);
       if (response.type === "get_list_blood_acceptance") {
         if (response.status === "success") {
-          setAcceptanceHistory(response.payload.blood_acceptances);
+          const filteredData = response.payload.blood_acceptances.filter(
+            (item) => item.patient.id === user_id
+          );
+
+          setAcceptanceHistory(filteredData);
         } else {
           console.error(
             "Failed to fetch acceptance history:",
@@ -45,6 +51,6 @@ const useGetUserHistory = () => {
     });
   }, []);
 
-  return { appointmentsData, donationHistory, acceptanceHistory };
+  return { donationHistory, acceptanceHistory };
 };
 export default useGetUserHistory;
