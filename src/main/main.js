@@ -33,6 +33,10 @@ app.on("ready", () => {
     console.log("Connected to C socket server via TCP");
   });
 
+  // socketClient.connect(10207, "0.tcp.in.ngrok.io", () => {
+  //   console.log("Connected to C socket server via TCP");
+  // });
+
   let buffer = "";
 
   socketClient.on("data", (data) => {

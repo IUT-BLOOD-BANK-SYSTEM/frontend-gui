@@ -11,24 +11,22 @@ export default function useGetNotification() {
           const filteredRequests = response.payload.notification.filter(
             (req) => req?.recipient_id == user_id
           );
-          // Format the created_at timestamp to "HH:mm" format
-          const formattedNotifications = filteredRequests.map(
-            (notification) => {
-              const date = new Date(notification.created_at);
-              const time = date.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              });
+
+          const formattedNotifications = filteredRequests
+            .map((notification) => {
+              const time = notification.created_at.split("T")[1].split(".")[0];
+              const [hour, minute] = time.split(":");
 
               return {
                 ...notification,
-                formatted_time: time,
+                formatted_time: `${hour}:${minute}`,
               };
-            }
-          );
+            })
+            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
           setNotification(formattedNotifications);
         } else {
-          console.error("Failed to fetch blood inventory:", response.message);
+          console.error("Failed to fetch notifications:", response.message);
         }
       }
     };

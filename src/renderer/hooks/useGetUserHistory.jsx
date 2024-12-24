@@ -6,7 +6,7 @@ const useGetUserHistory = () => {
   const [acceptanceHistory, setAcceptanceHistory] = useState([]);
 
   useEffect(() => {
-    window.electron.sendTCPMessage({ type: "get_list_appointments" });
+    window.electron.sendTCPMessage({ type: "get_list_appointment" });
     window.electron.onTCPMessage((response) => {
       if (response.type === "get_list_appointments") {
         if (response.status === "success") {
