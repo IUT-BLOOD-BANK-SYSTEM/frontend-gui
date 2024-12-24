@@ -194,7 +194,7 @@ const BloodBank = () => {
                   textColor="text-black"
                   labelColor="text-black"
                   type="select"
-                  options={bloods}
+                  options={bloodTypes}
                   required
                   borderColor="border-[#B9B9B9]"
                 />
