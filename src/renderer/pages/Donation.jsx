@@ -10,7 +10,8 @@ const Donation = () => {
   const [loading, setLoading] = React.useState(false);
   const formRef = React.useRef(null);
   const { customHospitals } = useGetHospital();
-  const { appointments, fetchAppointments } = useGetUpcomingAppointments();
+  const [shouldRefetch, setShouldRefetch] = React.useState(false);
+  const appointments = useGetUpcomingAppointments(shouldRefetch);
   const { user_id } = JSON.parse(localStorage.getItem("user"));
 
   const handleSubmit = (e) => {
@@ -43,7 +44,7 @@ const Donation = () => {
       if (response.status === "success") {
         toast.success("Appointment Successfully Created");
         formRef.current.reset();
-        fetchAppointments(); // Refresh appointments
+        setShouldRefetch((prev) => !prev);
       } else {
         toast.error(`Failed to create appointment: ${response.message}`);
       }
@@ -72,7 +73,10 @@ const Donation = () => {
         <form ref={formRef} onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-5 w-3/4">
             <div className="flex flex-col gap-2">
-              <label htmlFor="dateofappointment" className="text-sm font-medium">
+              <label
+                htmlFor="dateofappointment"
+                className="text-sm font-medium"
+              >
                 Date of Appointment*
               </label>
               <FormField
@@ -85,7 +89,10 @@ const Donation = () => {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="timeofappointment" className="text-sm font-medium">
+              <label
+                htmlFor="timeofappointment"
+                className="text-sm font-medium"
+              >
                 Time of Appointment*
               </label>
               <FormField
@@ -106,7 +113,10 @@ const Donation = () => {
               options={customHospitals}
               required
             />
-            <SubmitButton text={loading ? "Submitting..." : "Submit"} disabled={loading} />
+            <SubmitButton
+              text={loading ? "Submitting..." : "Submit"}
+              disabled={loading}
+            />
           </div>
         </form>
       </div>

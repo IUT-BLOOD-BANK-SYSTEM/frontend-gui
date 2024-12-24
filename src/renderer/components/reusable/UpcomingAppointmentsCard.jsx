@@ -6,7 +6,6 @@ const UpcomingAppointmentsCard = ({ data }) => {
   const appointmentDate = new Date(appointment_date);
   const currentDate = new Date();
 
-  // Skip rendering if the appointment date is in the past
   if (appointmentDate < currentDate) {
     return null;
   }
@@ -14,7 +13,6 @@ const UpcomingAppointmentsCard = ({ data }) => {
   const month = appointmentDate.toLocaleString("default", { month: "long" });
   const day = appointmentDate.getDate();
 
-  // Extract time in UTC (HH:mm format)
   const time = appointmentDate.toISOString().slice(11, 16);
 
   return (
@@ -22,7 +20,9 @@ const UpcomingAppointmentsCard = ({ data }) => {
       {/* Date Section */}
       <div className="flex flex-col justify-center items-center">
         <span className="text-red-600 text-sm font-medium">{month}</span>
-        <span className="text-red-600 text-3xl font-bold leading-none">{day}</span>
+        <span className="text-red-600 text-3xl font-bold leading-none">
+          {day}
+        </span>
       </div>
 
       {/* Status and Time Section */}
