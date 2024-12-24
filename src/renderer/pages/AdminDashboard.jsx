@@ -18,17 +18,11 @@ const columnData = [
 const AdminDashboard = () => {
   const [shouldRefetch, setShouldRefetch] = React.useState(false);
   const { hospitals } = useGetHospital(shouldRefetch);
-  const [formData, setFormData] = React.useState({
-    id: "",
-    name: "",
-    region_id: "",
-    head_nurse_id: "",
-    phone_number: "",
-    address: "",
-  });
+  const [formData, setFormData] = React.useState(null);
   const [originalData, setOriginalData] = React.useState(null);
   const [isChanged, setIsChanged] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogMode, setDialogMode] = React.useState("add"); // add or edit
 
   const handleClick = (id) => {
     const hospital = hospitals.find((hospital) => hospital.id === id);
@@ -42,6 +36,7 @@ const AdminDashboard = () => {
     };
     setFormData(data);
     setOriginalData(data);
+    setDialogMode("edit");
     setDialogOpen(true);
   };
 
@@ -50,14 +45,7 @@ const AdminDashboard = () => {
   };
 
   const onClose = () => {
-    setFormData({
-      id: "",
-      name: "",
-      region_id: "",
-      head_nurse_id: "",
-      phone_number: "",
-      address: "",
-    });
+    setFormData(null);
     setOriginalData(null);
     setDialogOpen(false);
   };
@@ -65,19 +53,27 @@ const AdminDashboard = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const type = dialogMode === "edit" ? "update_hospital" : "create_hospital";
+
     window.electron.sendTCPMessage({
-      type: "update_hospital",
+      type,
       payload: formData,
     });
 
     window.electron.onTCPMessage((response) => {
-      if (response.type !== "update_hospital") return;
+      console.log(response);
+
+      if (response.type !== type) return;
       if (response.status === "success") {
-        toast.success("Hospital updated successfully");
+        toast.success(
+          `Hospital ${dialogMode === "edit" ? "updated" : "added"} successfully`
+        );
         onClose();
         setShouldRefetch((prev) => !prev);
       } else {
-        toast.error("Failed to update Hospital");
+        toast.error(
+          `Failed to ${dialogMode === "edit" ? "update" : "add"} hospital`
+        );
       }
     });
   };
@@ -109,7 +105,7 @@ const AdminDashboard = () => {
             onChange={handleChange}
             onClose={onClose}
             isChanged={isChanged}
-            isOpen={dialogOpen}
+            isOpen={dialogOpen && dialogMode === "edit"}
           />
         </div>
       ),
@@ -136,7 +132,27 @@ const AdminDashboard = () => {
             />
           </div>
 
-          <HospitalDialog title="Add hospital" buttonText="Add" />
+          <HospitalDialog
+            title="Add hospital"
+            buttonText="Add"
+            onClick={() => {
+              setDialogMode("add");
+              setFormData({
+                id: "",
+                name: "",
+                region_id: "",
+                head_nurse_id: "",
+                phone_number: "",
+                address: "",
+              });
+              setDialogOpen(true);
+            }}
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+            onClose={onClose}
+            isChanged={!isChanged}
+            isOpen={dialogOpen && dialogMode === "add"}
+          />
         </div>
       </div>
     </section>

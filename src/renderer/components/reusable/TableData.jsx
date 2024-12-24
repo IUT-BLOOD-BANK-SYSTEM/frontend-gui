@@ -14,6 +14,7 @@ const TableData = ({
   rows,
   filterColumnKey = null,
   hasFilter = true,
+  maxRows = null,
 }) => {
   const [filteredRows, setFilteredRows] = useState(rows);
   const [searchTerm, setSearchTerm] = useState("");
@@ -61,20 +62,11 @@ const TableData = ({
         ? `${obj.donor.first_name} ${obj.donor.second_name}`.trim()
         : obj.unregistered_name || "Unknown Donor";
     }
-
     if (key === "donor[passport_number]") {
       return (
         obj.donor?.passport_number || obj.unregistered_passport_number || "N/A"
       );
     }
-
-    if (key === "donor[passport_number]") {
-      return obj["donor[passport_number]"];
-    }
-    if (key === "donorName") {
-      return obj.donorName;
-    }
-
     if (key === "doctorName") {
       return `${obj.doctor?.first_name || ""} ${
         obj.doctor?.second_name || ""
@@ -85,8 +77,7 @@ const TableData = ({
         obj.head_nurse?.second_name || ""
       }`.trim();
     }
-
-    if (!key.includes("[")) return obj[key]; // Handle simple keys.
+    if (!key.includes("[")) return obj[key];
 
     return key
       .split(/\.|\[|\]/)
@@ -105,6 +96,8 @@ const TableData = ({
       return dateString;
     }
   };
+
+  const rowsToDisplay = maxRows ? filteredRows.slice(0, maxRows) : filteredRows;
 
   return (
     <div>
@@ -149,7 +142,7 @@ const TableData = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredRows.map((row, rowIndex) => (
+          {rowsToDisplay.map((row, rowIndex) => (
             <TableRow key={row.id || rowIndex}>
               {columns.map((column, colIndex) => (
                 <TableCell key={colIndex}>
@@ -160,7 +153,8 @@ const TableData = ({
                         getNestedValue(row, column.key) === "Approved" ||
                         getNestedValue(row, column.key) === "Available"
                           ? "bg-green-500"
-                          : getNestedValue(row, column.key) === "Pending"
+                          : getNestedValue(row, column.key) === "Pending" ||
+                            "in_process"
                           ? "bg-gray-500"
                           : "bg-red-500"
                       }`}

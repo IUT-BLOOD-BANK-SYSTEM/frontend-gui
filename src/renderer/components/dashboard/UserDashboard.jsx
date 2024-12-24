@@ -23,8 +23,7 @@ const columnData2 = [
 ];
 
 const UserDashboard = () => {
-  const { appointmentsData, donationHistory, acceptanceHistory } =
-    useGetUserHistory();
+  const { donationHistory, acceptanceHistory } = useGetUserHistory();
 
   return (
     <section className="flex flex-col gap-16">
@@ -35,11 +34,10 @@ const UserDashboard = () => {
       />
 
       <div className="flex flex-col gap-6">
-        <h1 className="font-semibold text-xl">Upcoming appointments</h1>
         <div className="grid grid-cols-2 gap-5">
-          {appointmentsData.map((data) => (
+          {/* {appointmentsData.map((data) => (
             <UpcomingAppointmentsCard data={data} />
-          ))}
+          ))} */}
           <Link
             to="/dashboard/donation"
             className="border border-white w-full h-36 flex justify-center items-center rounded-lg"
@@ -58,14 +56,14 @@ const UserDashboard = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood donation history</h1>
-        <TableData columns={columnData1} rows={donationHistory} />
+        <TableData columns={columnData1} rows={donationHistory} maxRows={5} />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="font-semibold text-xl">Blood acception history</h1>
-        <TableData columns={columnData2} rows={acceptanceHistory} />
+        <TableData columns={columnData2} rows={acceptanceHistory} maxRows={5} />
         <Link to="/dashboard/history">
           <SeeMoreButton />
         </Link>
