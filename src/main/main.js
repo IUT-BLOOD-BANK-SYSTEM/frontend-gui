@@ -29,13 +29,9 @@ app.on("ready", () => {
 
   socketClient = new net.Socket();
 
-  socketClient.connect(8080, "192.168.16.110", () => {
+  socketClient.connect(17085, "4.tcp.eu.ngrok.io", () => {
     console.log("Connected to C socket server via TCP");
   });
-
-  // socketClient.connect(10207, "0.tcp.in.ngrok.io", () => {
-  //   console.log("Connected to C socket server via TCP");
-  // });
 
   let buffer = "";
 

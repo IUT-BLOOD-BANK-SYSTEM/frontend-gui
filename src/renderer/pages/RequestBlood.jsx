@@ -8,7 +8,6 @@ import { bloodTypes } from "../lib/utils";
 
 const RequestBlood = () => {
   const { customHospitals } = useGetHospital();
-  console.log(customHospitals);
 
   const formRef = useRef(null);
   const [selectedHospital, setSelectedHospital] = useState(null);
